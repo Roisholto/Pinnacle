@@ -1,0 +1,6 @@
+core:
+  customFileTypes:
+    'source.vue': [
+      'html'
+    ]
+    

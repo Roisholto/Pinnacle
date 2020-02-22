@@ -1,0 +1,7 @@
+@mixin alt-color($color: transparent){
+    color: $color ;
+}
+
+@mixin alt-border-color($color: transparent){
+    border-color: $color !important;
+}

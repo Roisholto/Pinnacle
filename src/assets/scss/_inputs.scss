@@ -1,0 +1,12 @@
+.input-border-bottom{
+    border:none ;
+    border-bottom: 2px solid ;
+    border-radius:0 ;
+
+    &:hover,&:focus{
+        box-shadow: none ;
+        -moz-box-shadow: none ;
+        -webkit-box-shadow: none ;
+
+    }
+}

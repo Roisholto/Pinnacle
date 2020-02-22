@@ -1,0 +1,5 @@
+.option{
+    &.active{
+        background: lighten(map-get($theme-colors,"primary"),30%) ;
+    }
+}

@@ -1,0 +1,40 @@
+
+/*Responsive text for headers*/
+$cus_headers: ("h3": 1.2rem, "h4": 1rem);
+$cus_normal: 0.8rem ;
+
+.resp-h3 {
+  font-size: map-get($cus_headers,'h3');
+}
+
+@include media-breakpoint-up(sm) {
+  .resp-h3 {
+    font-size: map-get($cus_headers,'h3') + 0.1;
+  }
+  .resp-normal-text {
+      font-size: $cus_normal ;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .resp-h3{
+    font-size: map-get($cus_headers,'h3') + 0.3;
+  }
+  .resp-normal-text {
+      font-size: $cus_normal + 0.1 ;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+ .resp-h3 {
+    font-size: map-get($cus_headers,'h3')+ 0.5;
+  }
+
+  .resp-normal-text {
+      font-size: $cus_normal + 0.2 ;
+  }
+}
+
+.resp-medium-text {
+
+}

@@ -1,0 +1,13 @@
+.theme-dark {
+    .card{
+        background: $menu-color-dark ;
+        color: $white ;
+    }
+}
+
+.theme-light {
+    .card{
+        background: $menu-color-light ;
+        color: $black;
+    }
+}

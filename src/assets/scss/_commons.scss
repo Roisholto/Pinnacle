@@ -1,0 +1,7 @@
+.remove-last-border {
+    .border-bottom{
+        &:last-child{
+            border-bottom:0px !important ;
+        }
+    }
+}

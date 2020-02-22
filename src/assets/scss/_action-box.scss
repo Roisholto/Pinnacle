@@ -1,0 +1,13 @@
+
+//used in settings view ;
+.show-action-box-on-hover{
+    &:hover{
+        .action-box{
+            display:block ;
+            }
+        }
+
+    .action-box{
+        display:none;
+        }
+}

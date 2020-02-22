@@ -1,0 +1,60 @@
+
+// https://www.lugolabs.com/flat-slider
+.flat-slider.ui-corner-all,
+.flat-slider .ui-corner-all {
+  border-radius: 0;
+}
+
+.flat-slider.ui-slider {
+  border: 0;
+  background: #c8c5c4;
+  border-radius: 10px;
+}
+
+.flat-slider.ui-slider-horizontal {
+  height: 4px;
+}
+
+.flat-slider.ui-slider-vertical {
+  height: 15em;
+  width: 4px;
+}
+
+.flat-slider  .ui-slider-handle {
+  width: 14px !important ;
+  height: 14px !important ;
+  background: #1b3f99;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.flat-slider.ui-slider-horizontal .ui-slider-handle {
+  top: 50%;
+  margin-top: -7px;
+}
+
+.flat-slider.ui-slider-vertical .ui-slider-handle {
+  left: 50%;
+  margin-left: -7px;
+}
+
+.flat-slider .ui-slider-handle:hover {
+  opacity: .8;
+}
+
+.flat-slider .ui-slider-range {
+  border: 0;
+  border-radius: 10;
+  background: #5291d6;
+}
+
+.flat-slider.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 4px;
+}
+
+.flat-slider.ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 4px;
+}

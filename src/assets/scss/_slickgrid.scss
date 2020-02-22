@@ -1,0 +1,80 @@
+/* overides for slickgrids */
+.slick-viewport
+    {
+    .slick-row
+        {
+        font-size: 13px ;
+
+        .slick-cell{
+            border-right:none ;
+            border-bottom: none ;
+            padding: 10px 6px 6px 10px;
+
+            // when in selected state ;
+            &.selected{
+                background-color: map-get($theme-colors,"primary") ;
+
+                .form-control{
+                    border-color: map-get($theme-colors,"primary");
+                    pointer-events: none;
+                }
+            }
+
+            // customization for inventoryGrid
+            .price-list{
+                height: calc(#{$input-height-inner-sm} - #{$input-height-border});
+                font-size:13px ;
+            }
+        }
+
+
+        }
+    }
+
+.slick-header{
+    .slick-header-columns{
+        .slick-header-column{
+            min-height:25px !important ;
+        }
+    }
+}
+
+
+
+.theme-dark{
+    .slick-viewport
+        {
+        .slick-row
+            {
+            .slick-cell{
+            }
+            &.even
+                {
+                background: $menu-color-dark ;
+                }
+            }
+        }
+}
+
+.theme-light{
+    .slick-viewport
+        {
+        .slick-row
+            {
+            .slick-cell{
+            }
+            &.even
+                {
+                background: $menu-color-light ;
+                }
+            }
+        }
+}
+/*
+#grid_invoice{
+    .slick-header {
+        position:sticky ;
+        top: $section-header-height-desktop;
+    }
+}
+*/

@@ -1,0 +1,108 @@
+
+.px-0.jBox-wrapper .jBox-container .jBox-content{
+    padding-left:0 ;
+    padding-right: 0 ;
+}
+
+.jBox-container{
+
+    .jBox-title{
+        font-size:1em ;
+        font-weight:500 ;
+        text-transform: uppercase;
+    }
+}
+
+.theme-dark{
+    .jBox-container{
+         background: $menu-color-dark-2 ;
+
+         .jBox-title{
+             background: $menu-color-dark-2 ;
+             border-color: lighten($black, 35%) ;
+         }
+
+         .jBox-footer{
+             background: $menu-color-dark-2 ;
+             border-color: lighten($black, 35%) ;;
+         }
+    }
+
+
+    .jBox-Confirm .jBox-content {
+         background: $black ;
+    }
+
+    .jBox-Confirm-button-cancel {
+      border-bottom-left-radius: 4px;
+      background: $menu-color-dark-2;
+      color: #fff;
+    }
+
+    .jBox-Confirm-button-cancel:hover,
+    .jBox-Confirm-button-cancel:active {
+      // background: lighten($menu-color-dark-2,10%);
+    }
+
+    .jBox-Confirm-button-submit {
+      border-bottom-right-radius: 4px;
+      background: map-get($theme-colors,"primary");
+      color: #fff;
+    }
+
+    .jBox-Confirm-button-submit:hover,
+    .jBox-Confirm-button-submit:active {
+    background: lighten(map-get($theme-colors,"primary"),10%);
+    }
+    .jBox-overlay{
+        background: rgba(255,255,255,0.18) ;
+    }
+}
+
+
+
+.jBox-Confirm-button-cancel:active,
+.jBox-Confirm-button-submit:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+}
+
+
+
+.theme-light{
+    .jBox-container{
+         // background: $menu-color-light-2 ;
+    }
+
+    .jBox-Confirm .jBox-content {
+      background: $white ;
+    }
+
+    .jBox-Confirm-button-cancel {
+      border-bottom-left-radius: 4px;
+      background: $menu-color-light-2;
+      color: $black;
+    }
+
+    .jBox-Confirm-button-cancel:hover,
+    .jBox-Confirm-button-cancel:active {
+      background: darken($menu-color-light-2,10%);;
+    }
+
+    .jBox-Confirm-button-submit {
+      border-bottom-right-radius: 4px;
+      background: map-get($theme-colors,"primary");
+      color: $black;
+    }
+
+    .jBox-Confirm-button-submit:hover,
+    .jBox-Confirm-button-submit:active {
+    background: lighten(map-get($theme-colors,"primary"),10%);
+    }
+}
+
+
+
+.jBox-Confirm-button-cancel:active,
+.jBox-Confirm-button-submit:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+}

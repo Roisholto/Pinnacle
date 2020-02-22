@@ -1,0 +1,9 @@
+.thick-border-bottom.nav-tabs .nav-link.active {
+    border-bottom: 3px map-get($theme-colors,"primary") solid;
+    background-color: transparent;
+    /* color: #007bff; */
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-weight: 600 ;
+}

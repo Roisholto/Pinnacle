@@ -1,0 +1,13 @@
+a{
+    &:hover{
+        text-decoration: none ;
+    }
+}
+
+.cursor-pointer{
+    cursor:pointer;
+}
+
+.flex-fill-available,.flex-fill-stretch {
+     width: stretch;
+}
