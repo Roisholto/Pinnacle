@@ -98,7 +98,7 @@
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
-                    Signin
+                    Login
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
@@ -111,7 +111,7 @@
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
-                    Signup
+                    Register
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>

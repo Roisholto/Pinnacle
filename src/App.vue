@@ -21,7 +21,8 @@ import Vue from 'vue' ;
 import {fetch_stores, fetch_locations} from './api/shopper.saved-stores.js' ;
 import {mapGetters} from 'vuex' ;
 import {APP_NAME, INSTALL_MODE, API_ENDPOINT} from './constants.js' ;
-
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 window.addEventListener('load', function preloader(){
     $('.loader-wrapper').remove()

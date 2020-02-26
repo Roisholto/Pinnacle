@@ -1,19 +1,5 @@
 <template>
-    <backPageLayout @back="">
-        <template v-slot:header>
-            <v-text-field
-                autofocus
-                flat
-                solo-inverted
-                hide-details
-                prepend-inner-icon="mdi-magnify"
-                label="Search"
-                :value="searchText"
-                @input="searchInputEvent"
-                placeholder="Search items . . ."
-                >
-            </v-text-field>
-        </template>
+    <StoreSearchLayout @back="" :requesting="requesting">
         <div class="remove-last-border px-2 white">
             <div class="py-3 border-bottom" v-for="(item, index) in match" v-bind:key="item">
                 <a href="javascript:;" v-on:click="open_modal(item)" class="d-flex text-dark">
@@ -30,7 +16,7 @@
                 <add-to-cart v-bind:productCode="currentCode" ref="theModal" />
             </template>
         </div>
-    </backPageLayout>
+    </StoreSearchLayout>
 </template>
 <script>
 
@@ -41,13 +27,15 @@ import { mapState } from 'vuex'
 import addToCart from '@/components/shopper/cart/add-to-cart.vue'
 import { naija_currency } from '@/functions/to_currency.js'
 import singleItem from '@/components/common/item/single-item.vue'
-import backPageLayout from '@/layouts/backPageLayout.vue' ;
+import StoreSearchLayout from '@/layouts/StoreSearchLayout.vue' ;
+
 
 export default  {
   name: 'StoreMainSearch',
   data: function () {
     return {
-      currentCode: ''
+      currentCode: '',
+      requesting: false
     }
   },
   watch: {
@@ -68,13 +56,13 @@ export default  {
   components: {
     addToCart,
     singleItem,
-    backPageLayout
+    StoreSearchLayout,
+
   },
-  template: `
-            `,
+
   created: function () {
     // do the search
-    this.debounced_m_search = _.debounce(this.merchant_search_items, 3000)
+    this.debounced_m_search = _.debounce(this.merchant_search_items, 2000)
   },
   mounted: function () {
     if (this.$route.query.word) { this.$store.dispatch('merchant/update_search_string', this.$route.query.word) }
@@ -105,7 +93,7 @@ export default  {
         'or',
         { code: { data: ['%' + val + '%'], factor: 'like' } }
       ]
-
+      vm.requesting = true ;
       fetch_item_from_api(Core.merchant, clause)
         .then(resp => {
           console.log('done fetching item from api', 'will match ')
@@ -113,6 +101,9 @@ export default  {
         })
         .catch(e => {
           console.log('Error found on fetch item from api', e)
+        })
+        .finally(()=>{
+          vm.requesting = false ;
         })
     },
     // match merchant items with search text ;

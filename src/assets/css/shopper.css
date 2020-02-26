@@ -4,6 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+/** icon used on merchant menu page **/
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -18,7 +19,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #007bff;
+  --primary: #f33348;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
@@ -315,7 +316,7 @@
 }
 
 .border-primary {
-  border-color: #007bff !important;
+  border-color: #f33348 !important;
 }
 
 .border-secondary {
@@ -621,11 +622,11 @@
 }
 
 .text-primary {
-  color: #007bff !important;
+  color: #f33348 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #0056b3 !important;
+  color: #cd0c21 !important;
 }
 
 .text-secondary {
@@ -716,7 +717,6 @@ a.text-dark:hover, a.text-dark:focus {
   color: inherit !important;
 }
 
-/** icon used on merchant menu page **/
 [class*=grid-] {
   width: 100%;
 }
@@ -872,6 +872,10 @@ a {
   height: 100%;
 }
 
+.appbar-extension-primary div.v-toolbar__extension {
+  background-color: #f33348;
+}
+
 .input-border-bottom {
   border: none;
   border-bottom: 2px solid;
@@ -884,7 +888,7 @@ a {
 }
 
 .option.active {
-  background: #99caff;
+  background: #fcc4ca;
 }
 
 .image-container--16-9 {

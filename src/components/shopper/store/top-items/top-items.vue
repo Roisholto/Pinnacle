@@ -30,7 +30,6 @@
 import Slick from 'vue-slick'
 import { API_ENDPOINT } from '@/constants.js'
 import singleItem from './single-item.vue'
-import 'slick-carousel/slick/slick.css'
 import addToCart from '@/components/shopper/cart/add-to-cart.vue'
 import singleItemCard from '@/components/common/item/single-item-card.vue'
 import parse_rate from '@/functions/parse_item_rates.js'
@@ -66,7 +65,7 @@ export default {
       openAddCart: false,
       slickCanHandleClick: true, // use to determie the state of slick ;
       slickOptions: {
-        lazyLoad:'progressive',  
+        lazyLoad:'progressive',
         arrows: false,
         variableWidth: false,
         centerMode: true,

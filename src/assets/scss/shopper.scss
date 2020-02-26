@@ -8,6 +8,7 @@
 
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
+@import '_variables' ;
 @import "../../../node_modules/bootstrap/scss/mixins";
 @import "../../../node_modules/bootstrap/scss/root";
 // @import "../../../node_modules/bootstrap/scss/reboot";
@@ -61,7 +62,7 @@
 // @import "../../../node_modules/bootstrap/scss/utilities";
 //@import "../../../node_modules/bootstrap/scss/print";
 
-@import '_variables' ;
+
 // mixins
 @import 'mixin/_grid-template-columns' ;
 @import '_mgrid' ;

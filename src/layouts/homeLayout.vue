@@ -11,8 +11,8 @@
         <v-app-bar
             :clipped-left="$vuetify.breakpoint.lgAndUp"
             app
-            color="primary darken-3"
-            dark
+            color="white"
+            
             >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title

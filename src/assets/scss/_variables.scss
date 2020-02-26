@@ -70,3 +70,8 @@ $section-header-height-mobile: $menu-height-smartphone-trigger ;
 $header-ind-z-index: $menu-z-index-smartphone-trigger - 1 ;
 $q_border-radius: 1rem ;
 $action-panel-height-desktop: 80px ;
+
+$primary: #f33348 ;
+@debug $primary ;
+$theme-colors: map-merge($theme-colors, ("primary":$primary)) ;
+@debug $theme-colors ;

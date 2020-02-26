@@ -2,10 +2,9 @@
     <v-app id="">
         <v-navigation-drawer
             v-model="drawer"
-            :clipped="false"
+            :clipped="$vuetify.breakpoint.lgAndUp"
             app
             >
-            <!--:clipped="$vuetify.breakpoint.lgAndUp"-->
             <userNav/>
         </v-navigation-drawer>
 
@@ -15,7 +14,7 @@
             color=""
             class="appbar-extension-primary"
             :extension-height="storeInfoHeight"
-
+            :extended="breakpoint.xs"
             >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title
@@ -26,45 +25,11 @@
                     <span class="text-capitalize">{{appName}}</span>
                 </v-btn>
             </v-toolbar-title>
-            <v-text-field
-                flat
-                solo-inverted
-                hide-details
-                prepend-inner-icon="mdi-magnify"
-                label="Search"
-                class="hidden-sm-and-down"
-                color="primary"
-                @focus="searchFocusedEvent"
-                placeholder="Search items . . ."
-                >
-            </v-text-field>
-
+            <StoreSearchInput v-if="!breakpoint.xs" :loading="requesting"/>
 
             <v-spacer></v-spacer>
 
-            <v-btn class="hidden-md-and-up" @click.stop="searchFocusedEvent" color="primary" icon>
-                <v-icon class="">mdi-magnify</v-icon>
-            </v-btn>
-
             <CartLength />
-
-            <v-btn
-                icon
-                large
-                class="d-none"
-                >
-                <v-avatar
-                    size="32px"
-                    item
-
-                    >
-                    <v-img
-                    src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-                    alt="Vuetify"
-                    >
-                    </v-img>
-                </v-avatar>
-            </v-btn>
 
             <template v-slot:extension>
               <!-- v-if="$store.state.ui.installMode == 'standard'" -->
@@ -79,7 +44,12 @@
                     <store-level-1 v-bind:store="merchantInfo" v-bind:options="{showType:false}" :storeDistance="true">
                     </store-level-1>
                 </div>-->
-              <Extension ref="extension" />
+              <div ref="extension" class="position-relative" style="width:100%">
+                <div v-if="breakpoint.xs" class="justify-center d-flex pt-2">
+                  <StoreSearchInput :loading="requesting"/>
+                </div>
+                <Extension />
+              </div>
             </template>
         </v-app-bar>
 
@@ -107,10 +77,13 @@ import ResizeSensor from 'resize-sensor' ;
 import storeFooter from '@/components/shopper/store/store-footer.vue' ;
 import CartLength from '@/components/shopper/cart-length.vue' ;
 import Extension from '@/components/shopper/store/extension/extension.vue' ;
+import StoreSearchInput from '@/components/shopper/store/store-search-input.vue' ;
 
 export default {
+    name:"StoreSearchLayout",
     props: {
       source: String,
+      requesting:Boolean,
       showMerchantInfo:{
           type:Boolean,
           default:()=> {
@@ -127,20 +100,23 @@ export default {
      useExtension:true
      }),
      computed:{
-         ...mapState({
+       breakpoint(){
+         return this.$vuetify.breakpoint ;
+       },
+       ...mapState({
              merchantInfo: state => state.merchant.info
             }),
-        ...mapGetters({
+      ...mapGetters({
             homeLink:'ui/homeLink'
-        })  ,
-         storeInfoHeight:{
-             set:function(n){
-                 this.$store.commit('ui/update_info',['storeInfoHeight',n])
-                 },
-             get:function(){
-                 return this.$store.state.ui.storeInfoHeight.toString()+'px' ;
-                 }
+          })  ,
+     storeInfoHeight:{
+         set:function(n){
+             this.$store.commit('ui/update_info',['storeInfoHeight',n])
              },
+         get:function(){
+             return this.$store.state.ui.storeInfoHeight.toString()+'px' ;
+             }
+         },
 
 
      },
@@ -149,7 +125,8 @@ export default {
         storeLevel1,
         storeFooter,
         CartLength,
-        Extension
+        Extension,
+        StoreSearchInput
     },
     mounted: function()
         {
@@ -161,7 +138,7 @@ export default {
             {
             this.useExtension = true ;
             console
-            this.resizeMainInfo = new ResizeSensor(vm.$refs.extension.$el, vm.set_store_main_info_height) ;
+            this.resizeMainInfo = new ResizeSensor(vm.$refs.extension, vm.set_store_main_info_height) ;
             }
         },
     beforeDestroy:function()
@@ -179,7 +156,7 @@ export default {
       },
       set_store_main_info_height: function($ev)
           {
-          let el = this.$refs.extension.$el ;
+          let el = this.$refs.extension ;
           let $el = $(el) ;
           let rt = 0
           if($el.length)

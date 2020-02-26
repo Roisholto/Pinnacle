@@ -111,3 +111,7 @@ a{
         }
     }
 }
+
+.appbar-extension-primary div.v-toolbar__extension {
+  background-color: map-get($theme-colors, "primary");
+}

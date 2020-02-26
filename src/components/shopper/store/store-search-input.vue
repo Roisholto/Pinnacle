@@ -1,22 +1,42 @@
 <template>
-
-    <search-input ref="searchBox" v-bind:defValue="searchText" v-on:input="searchInputEvent" v-on:focusin="searchFocusedEvent" v-bind:where="'store'"/>
-
+    <v-text-field
+        autofocus
+        :solo-inverted="false"
+        :solo="true"
+        :dense="breakpoint.xs"
+        hide-details
+        height="40px"
+        prepend-inner-icon="mdi-magnify"
+        label="Search"
+        :value="searchText"
+        @input="searchInputEvent"
+        placeholder="Search items . . ."
+        :loading="loading"
+        >
+    </v-text-field>
 </template>
 <script>
-import searchInput from '@/components/shopper/search-input'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'storeSearchInput',
+  name: 'StoreSearchInput',
+
+  props: {
+    loading:Boolean,
+
+  },
+
   components: {
-    searchInput
+
   },
   computed: {
     ...mapState({
       merchantInfo: state => state.merchant.info,
       searchText: state => state.merchant.search.search_text
-    })
+    }),
+    breakpoint(){
+      return this.$vuetify.breakpoint ;
+    },
   },
   mounted: function () {
     // $(this.$refs.searchBox.$el).find('input').val('hello') ;
