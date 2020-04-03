@@ -24,7 +24,7 @@ module.exports = {
         '.json'
       ],
       'alias': {
-        'vue$': 'vue/dist/vue.js'
+        'vue$': process.env.NODE_ENV != 'production'? 'vue/dist/vue.js' : 'vue/dist/vue.min.js',
       }
     },
     'module': {

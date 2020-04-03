@@ -81,10 +81,11 @@ export default  {
         vm.$refs.theModal.modal_comp_open = true
       })
     },
-    merchant_search_items: function (val) {
+    merchant_search_items: function (word) {
       // search  through inventory of current merchant ;
       // ordinarily we should check the indexeddb for records before checking the api_endpoint ;
-      if (val.trim() == '' || val.trim().length < 3) { return false }
+      let val = word ? word.trim() : '' ;
+      if (val.trim().length < 3) { return false }
 
       // console.log('checking api ')
       const vm = this
@@ -108,7 +109,7 @@ export default  {
     },
     // match merchant items with search text ;
     match_merchant_inventory_search: function (val) {
-      let word = val.toLowerCase()
+      let word = val ? val.toLowerCase() : '' ;
       let matched = []; let vm = this
       if (word == '') { matched = Object.keys(this.allItems) } else {
         Object.keys(vm.allItems).forEach(function (v, k) {

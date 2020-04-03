@@ -7,6 +7,9 @@ shopper.zip
 # local env files
 .env.local
 .env.*.local
+.env
+.env.staging
+.env.development
 
 # Log files
 npm-debug.log*

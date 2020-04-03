@@ -5,10 +5,10 @@ export class Core {
     let def = {
       method: 'GET',
       headers:
-                    {
-                      Authorization: this.Authorization || '',
-                      'Content-Type': 'Application/json'
-                    }
+              {
+                Authorization: this.Authorization || '',
+                'Content-Type': 'Application/json'
+              }
     }
     let t = Object.assign(def, headers)
     if (Object.keys(body).length > 0) {

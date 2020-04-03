@@ -72,6 +72,12 @@ const routes = [
             name: 'merchant-profile',
             path: 'profile',
             component: () => import('./components/shopper/store/profile/profile.vue')
+          },
+          {
+            name:"merchant-pages",
+            path: 'page/:id',
+            component: ()=> import('./components/shopper/Pages/page.vue'),
+            props: true
           }
         ]
   },
@@ -279,6 +285,10 @@ else
     }
 
 })
+
+router.afterEach(function(){
+  window.scroll({top:0,left:0,behavior:"smooth"}) ;
+}) ;
 
 function setupError(to){
 

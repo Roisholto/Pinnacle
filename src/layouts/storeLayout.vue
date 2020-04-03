@@ -2,30 +2,23 @@
     <v-app id="">
         <v-navigation-drawer
             v-model="drawer"
-            :clipped="false"
             app
+            :clipped="false"
             >
             <!--:clipped="$vuetify.breakpoint.lgAndUp"-->
             <userNav/>
         </v-navigation-drawer>
 
         <v-app-bar
-            :clipped-left="$vuetify.breakpoint.lgAndUp"
             app
-            color=""
+            :color="breakpoint.xs ? 'primary': ''"
             class="appbar-extension-primary"
             :extension-height="storeInfoHeight"
+            ><!--:clipped-left="$vuetify.breakpoint.lgAndUp"-->
 
-            >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title
-                style="width: 230px"
-                class="ml-0 pl-0"
-                >
-                <v-btn bottom text large :to="homeLink" color="primary">
-                    <span class="text-capitalize">{{appName}}</span>
-                </v-btn>
-            </v-toolbar-title>
+            <AppbarNavIcon />
+
+            <AppbarTitle />
             <v-text-field
                 flat
                 solo-inverted
@@ -33,7 +26,7 @@
                 prepend-inner-icon="mdi-magnify"
                 label="Search"
                 class="hidden-sm-and-down"
-                color="primary"
+                :color="breakpoint.xs?'primary':''"
                 @focus="searchFocusedEvent"
                 placeholder="Search items . . ."
                 >
@@ -42,7 +35,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn class="hidden-md-and-up" @click.stop="searchFocusedEvent" color="primary" icon>
+            <v-btn class="hidden-md-and-up" @click.stop="searchFocusedEvent" :color="!breakpoint.xs? 'primary' : 'white'" :dark="!breakpoint.xs" icon>
                 <v-icon class="">mdi-magnify</v-icon>
             </v-btn>
 
@@ -94,7 +87,7 @@
 
 
         <!--<store-footer></store-footer>-->
-
+        <ScrollToTop/>
     </v-app>
 </template>
 
@@ -107,6 +100,9 @@ import ResizeSensor from 'resize-sensor' ;
 import storeFooter from '@/components/shopper/store/store-footer.vue' ;
 import CartLength from '@/components/shopper/cart-length.vue' ;
 import Extension from '@/components/shopper/store/extension/extension.vue' ;
+import ScrollToTop from '@/components/common/scroll-to-top.vue' ;
+import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
+import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
 
 export default {
     props: {
@@ -120,7 +116,6 @@ export default {
     },
 
     data: () => ({
-     drawer: null,
      appName:APP_NAME,
      INSTALL_MODE,
      store_main_info_height:'',
@@ -128,11 +123,27 @@ export default {
      }),
      computed:{
          ...mapState({
-             merchantInfo: state => state.merchant.info
-            }),
+           merchantInfo: state => state.merchant.info,
+           }),
+
+         drawer:{
+           get(){
+             return this.$store.state.ui.leftNavDrawer ;
+           },
+
+           set(v){
+             this.$store.commit('ui/update_info',['leftNavDrawer', v])
+           }
+         },
+
         ...mapGetters({
             homeLink:'ui/homeLink'
-        })  ,
+          }),
+
+        breakpoint(){
+          return this.$vuetify.breakpoint ;
+        },
+
          storeInfoHeight:{
              set:function(n){
                  this.$store.commit('ui/update_info',['storeInfoHeight',n])
@@ -149,18 +160,21 @@ export default {
         storeLevel1,
         storeFooter,
         CartLength,
-        Extension
+        Extension,
+        ScrollToTop,
+        AppbarTitle,
+        AppbarNavIcon
     },
     mounted: function()
         {
         // update the margin-top of the router view to  height of (#store-main-info);
         // this.set_store_main_info_height() ;
         const vm = this ;
-        console.log('store extension ',this.$refs.extension)
+        //console.log('store extension ',this.$refs.extension)
         if(vm.$refs.extension)
             {
             this.useExtension = true ;
-            console
+            //console
             this.resizeMainInfo = new ResizeSensor(vm.$refs.extension.$el, vm.set_store_main_info_height) ;
             }
         },

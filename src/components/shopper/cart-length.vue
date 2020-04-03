@@ -1,7 +1,7 @@
 <template>
-  <v-btn icon exact :to="theRoute" class="" color="primary">
-      <v-badge color="red darken-2">
-        <template slot="badge">{{cart_count}}</template>
+  <v-btn icon exact :to="theRoute" class="" :color="breakpoint.xs ? 'white' : 'primary'">
+      <v-badge :color="breakpoint.xs ?  'white':'red darken-2'  ">
+        <template slot="badge"><span :class="breakpoint.xs ? 'red--text': ''">{{cart_count}}</span></template>
         <v-icon>mdi-cart</v-icon>
       </v-badge>
   </v-btn>
@@ -10,6 +10,10 @@
 export default {
   name:"CartLength",
   computed: {
+    breakpoint(){
+      return this.$vuetify.breakpoint ;
+    },
+
     theRoute: function(){
       let a = {name:'cart', params:{storeid:this.mid}} ;
       return a ;

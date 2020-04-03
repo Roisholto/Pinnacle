@@ -13,7 +13,7 @@
         </v-card-title>-->
         <v-card-text>
         <!--<div class="card-body pa-2 w-100 text-capitalize d-flex flex-column justify-space-between" style="background: rgba(162, 158, 158, 0.2)">-->
-            <div class="body-2 font-weight-medium">{{category.name}}</div>
+            <div class="body-2 font-weight-medium text-truncate text-capitalize">{{category.name}}</div>
             <div class="caption primary--text text-right" v-show="mode!='carousel'">{{category.count}}</div>
         <!--</div>-->
       </v-card-text>

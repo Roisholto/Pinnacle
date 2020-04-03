@@ -50,7 +50,7 @@ export default {
           let a = JSON.parse(JSON.stringify(this.theTopItems.data.items))
 
           a.forEach(function(v){
-              console.log('parsed rate',parse_rate(v.rate) );
+              // console.log('parsed rate',parse_rate(v.rate) );
              v.rate = parse_rate(v.rate) ;
           })
 

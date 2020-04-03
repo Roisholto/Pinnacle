@@ -33,7 +33,7 @@
         </v-sheet>
 
         <JoinUs />
-        <ScrollToTop/>
+
         <!-- End product categorys -->
     </storeLayout>
 </template>
@@ -46,7 +46,7 @@ import QuickBlog from './quick-blog.vue' ;
 import HowToShop from './how-to-shop.vue' ;
 import Opening from './page-elements/opening.vue' ;
 import JoinUs from './page-elements/join-us.vue' ;
-import ScrollToTop from '@/components/common/scroll-to-top.vue' ;
+
 
 import {mapState} from 'vuex' ;
 
@@ -70,7 +70,7 @@ export default {
     HowToShop,
     Opening,
     JoinUs,
-    ScrollToTop
+    
   },
 
   computed: {

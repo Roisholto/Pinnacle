@@ -9,6 +9,7 @@ const ui = {
     storeInfoHeight: 80, // set 80 as default ;
     appHeaderHeight: 60, // default ;
     storeFooterHeight: 0,
+    leftNavDrawer:false,
     StoreDefault:{
       // number of times the opening modal was opened
       openingModalCount:0

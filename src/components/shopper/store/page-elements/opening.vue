@@ -2,23 +2,21 @@
 
   <v-card v-show="show">
     <v-card-title class="headline primary--text font-weight-light text-center">
-      <div class="flex-grow-1">
-        Welcome to &nbsp;<span class="font-weight-bold">{{appName}}</span>&nbsp; online
+      <div class="col px-2">
+        Welcome to&nbsp;<span class="font-weight-bold">{{appName}}</span>&nbsp;online
       </div>
-      <slot name="close">
-        <div class="pl-4">
-          <v-btn small icon @click="act">
-            <v-icon small>
-              mdi-close
-            </v-icon>
-          </v-btn>
-        </div>
-      </slot>
+      <div class="pl-4 flex-shrink-1 ">
+        <v-btn small icon @click="act">
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </div>
     </v-card-title>
 
     <v-card-text>
       <div class="pb-3 text-center body-2"> Get the <span class="font-weight-medium primary--text">best prices</span> on foods, drinks and more, all delivered to your doorstep.</div>
-      <v-btn color="primary" block>
+      <v-btn color="primary" block large :to="{name:'store-category', params:{category:'all'}}">
         Shop now
       </v-btn>
 

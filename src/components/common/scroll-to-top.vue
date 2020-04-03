@@ -21,7 +21,7 @@ export default{
 
   methods:{
     intersect(entries, observer, isIntersecting){
-      console.log('isIntersecting', entries, observer, isIntersecting) ;
+      // console.log('isIntersecting', entries, observer, isIntersecting) ;
     },
 
     ScrollToTop(){

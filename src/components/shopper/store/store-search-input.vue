@@ -12,6 +12,7 @@
         @input="searchInputEvent"
         placeholder="Search items . . ."
         :loading="loading"
+        clearable
         >
     </v-text-field>
 </template>

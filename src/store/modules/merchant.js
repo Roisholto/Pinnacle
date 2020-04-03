@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import cartExtras from './cartExtras.js'
+import pageComponents from './pageComponents.js' ;
 
 const merchant = {
   // data store for the current merchant
@@ -33,7 +34,8 @@ const merchant = {
     pref: {}
   },
   modules: {
-    cartExtras: cartExtras
+    cartExtras: cartExtras,
+    pageComponents:pageComponents
   },
   /************************************************/
   mutations: {

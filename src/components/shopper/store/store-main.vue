@@ -103,6 +103,7 @@ export default {
                         Core.db_merchant = db_merchant ;
                         Core.merchant = storeid ;
                         Core.merchantid = storeid ;// dont want to go back to looking for places i have used Core.merchant
+                        localStorage.setItem('merchantId', storeid) ;
 
                         db_merchant.transaction('rw',db_merchant.category,db_merchant.settings, db_merchant.inventory, function(){
                             // update the category
