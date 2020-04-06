@@ -33,6 +33,7 @@ export default {
             },
         ...mapState({
             merchantInfo:state=> state.merchant.info,
+            page:state=>state.merchant.page,
             ui:state=>state.ui
             }),
         },
