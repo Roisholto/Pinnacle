@@ -1,6 +1,6 @@
 const pageComponents = {
   namespaced:true,
-  
+
   state:{
     image_sliders:{},
     page_groups:{}
@@ -12,6 +12,10 @@ const pageComponents = {
       // must contain a name .
       if(typeof prop == 'object')
         state.image_sliders[prop.name] = prop ;
+    },
+
+    add_page_group(state, prop){
+      state.page_groups[prop.name] = prop ;
     }
   },
 
@@ -21,6 +25,9 @@ const pageComponents = {
       return state.image_sliders[prop]
     },
 
+    getPageGroup: (state)=>(prop)=>{
+      return state.page_groups[prop]
+    }
   }
 }
 
