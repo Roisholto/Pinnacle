@@ -1,6 +1,5 @@
 <template>
-  <BlankPageLayout>
-    <div id="page-template" v-html="page.content"></div>
+  <storeLayout>
     <div v-if="requesting" class="d-flex align-center flex-column">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
       <span class="body-2">Fetching content</span>
@@ -10,17 +9,20 @@
         {{error.message}}
       </div>
       <div v-else>
-        <pageTemplate></pageTemplate>
+        <pageTemplate :content="page.content"></pageTemplate>
       </div>
     </template>
-  </BlankPageLayout>
+  </storeLayout>
 </template>
 <script>
-import BlankPageLayout from '@/layouts/BlankPageLayout.vue'
+import storeLayout from '@/layouts/storeLayout.vue'
 import {API_ENDPOINT} from '@/constants.js' ;
 import Core from '@/class.core.js' ;
 import QuickBlog from '@/components/shopper/store/quick-blog.vue' ;
 import '@/components/globals.js' ;
+import Vue from 'vue' ;
+
+
 
 export default {
   name:"Page",
@@ -29,20 +31,21 @@ export default {
     id:{
       type: Number | String,
       required: true
-      }
-  },
+    },
 
+    data: {
+      type: Object
+    }
+  },
 
   data(){
     return {
-      requesting:true,
+      requesting:false,
       page:{
         title:'',
         content:''
       },
-      error:{
-
-      }
+      error:{}
     }
   },
 
@@ -53,21 +56,42 @@ export default {
   },
 
   components:{
-    BlankPageLayout,
+    storeLayout,
+
     pageTemplate:{
-      components:{
-        QuickBlog
+      props:{
+        content:String
       },
-      template:'#page-template'
+
+    render (createElement){
+      // https://snipcart.com/blog/vue-render-functions
+      const compiledTemplate = Vue.compile(this.content);
+      return compiledTemplate.render.call(this, createElement);
+      }
+    }
+  },
+
+  watch:{
+    id(nv){
+      let vm = this ;
+      this.$nextTick(function(){
+        vm.fetchPage()
+      })
     }
   },
 
   mounted(){
   let vm = this ;
+  if(this.data)
+    {
+    this.page = Object.assign({}, this.data) ;
+    }
+  else
+    {
     this.$nextTick(function(){
       vm.fetchPage()
     })
-
+    }
   },
 
   methods:{
@@ -76,7 +100,7 @@ export default {
       let url = `${API_ENDPOINT}/pages/shopper/${this.$route.params.storeid}/${this.id}` ;
       let vm = this ;
       vm.requesting = true ;
-      fetch(url)
+      return fetch(url)
         .then(function(r){
           return r.json()
         })
