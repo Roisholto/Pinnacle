@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import cartExtras from './cartExtras.js'
 import pageComponents from './pageComponents.js' ;
+import page from './page' ;
 
 const merchant = {
   // data store for the current merchant
@@ -35,6 +36,7 @@ const merchant = {
   },
   modules: {
     cartExtras: cartExtras,
+    page:page,
     pageComponents:pageComponents
   },
   /************************************************/
