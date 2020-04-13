@@ -19,6 +19,7 @@
         <QuickBlog />
         <!-- End Top items -->
 
+        <NeedHelp />
         <!--- Product Categories here -->
         <v-sheet light class="text-center py-10">
             <h3 class="mb-5 display-1 font-weight-light primary--text">Shop by aisle</h3>
@@ -43,10 +44,10 @@ import topItems from './top-items/top-items.vue'
 import storeLayout from '@/layouts/storeLayout.vue' ;
 import TopBanner from './top-banner.vue' ;
 import QuickBlog from './quick-blog.vue' ;
-import HowToShop from './how-to-shop.vue' ;
+import HowToShop from './page-elements/how-to-shop.vue' ;
 import Opening from './page-elements/opening.vue' ;
 import JoinUs from './page-elements/join-us.vue' ;
-
+import NeedHelp from './page-elements/need-help.vue' ;
 
 import {mapState} from 'vuex' ;
 
@@ -70,7 +71,7 @@ export default {
     HowToShop,
     Opening,
     JoinUs,
-    
+    NeedHelp
   },
 
   computed: {
