@@ -1,6 +1,6 @@
 <template>
-    
-    <div>
+
+    <div class="text-dark">
         <singleDay :class="[current_day == 'monday' ? 'primary lighten-3 rounded' : '']" :day="'monday'" :times="get_day('monday')" />
         <singleDay :class="[current_day == 'tuesday' ? 'primary lighten-3 rounded' : '']" :day="'tuesday'" :times="get_day('tuesday')" />
         <singleDay :class="[current_day == 'wednesday' ? 'primary lighten-3 rounded' : '']" :day="'wednesday'" :times="get_day('wednesday')" />
