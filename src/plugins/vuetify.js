@@ -3,7 +3,6 @@ import Vuetify from 'vuetify/lib'
 
 Vue.use(Vuetify)
 
-console.log('primary', process.env.VUE_APP_PRIMARY_COLOR) ;
 export default new Vuetify({
     theme: {
     themes: {

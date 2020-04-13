@@ -26,7 +26,6 @@ let google = window.google ;
 // window.jQuery = jquery ;
 
 Vue.config.productionTip = false
-console.log('deployment mode', process.env.DEPLOYMENT_MODE) ;
 const app = new Vue({
   store,
   router,
