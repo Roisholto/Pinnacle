@@ -1,3 +1,4 @@
+import AltContact from './page-components/AltContact.js' ;
 const pageComponents = {
   namespaced:true,
 
@@ -28,6 +29,10 @@ const pageComponents = {
     getPageGroup: (state)=>(prop)=>{
       return state.page_groups[prop]
     }
+  },
+
+  modules:{
+    altContact:AltContact
   }
 }
 
