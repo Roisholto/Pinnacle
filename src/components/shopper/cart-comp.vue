@@ -1,6 +1,6 @@
 /** disable-eslint */
 <template>
-    <storeLayout>
+    <div>
         <div v-if="cart_length==0">
             <emptyCartPlaceholder :type="merchantInfo.type"/>
         </div>
@@ -202,10 +202,9 @@
                 </div>
             </template>
     </div>
-</storeLayout>
+</div>
 </template>
 <script>
-import storeLayout from '@/layouts/storeLayout.vue' ;
 import * as spJs from '../../shopper.payment.js'
 import Payment_Comp from './payment/payment.vue'
 import { calc_preorder_duration_unit } from '../../constants.js'
@@ -401,7 +400,6 @@ export default {
     addToCart,
     quotationInfo,
     emptyCartPlaceholder,
-    storeLayout
   },
 
   mounted: function () {
