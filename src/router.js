@@ -22,7 +22,11 @@ const routes = [
     children:
         [
           {
-            path: '',
+            path:'',
+            redirect:{name:'store', params:(route)=>({'storeid':route.params.storeid})}
+          },
+          {
+            path: 'home',
             name: 'store',
             component: () => import('./components/shopper/store/store-default.vue')
           },
@@ -48,7 +52,7 @@ const routes = [
               {
                 name: 'cart',
                 path: '',
-                component: () => import('./components/shopper/cart-comp.vue')
+                component: () => import('./components/shopper/cart-comp-view.vue')
               },
               {
                 path: 'add-delivery-info',
@@ -78,6 +82,12 @@ const routes = [
             path: 'page/:id',
             component: ()=> import('./components/shopper/Pages/page.vue'),
             props: true
+          },
+
+          {
+            name:"merchant-contact",
+            path: 'contact',
+            component: () => import('./components/shopper/store/profile/contact/contact-us.vue')
           }
         ]
   },
@@ -243,8 +253,8 @@ router.beforeEach((to, from, next) => {
     $('body').removeClass('disable-scroll disable-mouse')
   }
 
-  console.log('to', to) ;
- if(INSTALL_MODE == 'standalone' &&  (!store.state.standalone.mid) )
+  // console.log('to', to) ;
+  if(INSTALL_MODE == 'standalone' &&  (!store.state.standalone.mid) )
     {
     if(!store.state.standalone.fetched_once)
         {
