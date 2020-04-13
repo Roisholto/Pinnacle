@@ -3,7 +3,7 @@
       style="width: 230px"
       class="ml-0 pl-0"
       >
-      <v-btn bottom text large :to="homeLink" :color=" !breakpoint.xs ? 'primary' : 'white'">
+      <v-btn bottom text large :to="pageLinks.home" :color="color_">
           <span class="text-capitalize">{{appName}}</span>
       </v-btn>
   </v-toolbar-title>
@@ -14,6 +14,11 @@ import {APP_NAME} from '@/constants.js' ;
 
 export default {
   name:"AppbarTitle",
+
+  props:{
+    color:String
+  },
+
   data(){
     return {
       appName:APP_NAME,
@@ -23,9 +28,14 @@ export default {
     breakpoint(){
       return this.$vuetify.breakpoint ;
     },
-    ...mapGetters({
-      homeLink:'ui/homeLink'
-    })
+
+    pageLinks(){
+      return this.$store.getters['pageLinks']() ;
+    },
+
+    color_(){
+      return this.color ? this.color : !this.breakpoint.xs ? 'primary' : 'white' ;
+    }
   },
 }
 </script>
