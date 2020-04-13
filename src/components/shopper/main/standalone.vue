@@ -2,8 +2,9 @@
     <v-app>
         <v-content class="d-flex">
             <v-container fluid class="justify-center">
-                <div class="align-self-center">
-                    Preparing page. . .
+                <div class="text-center">
+                    <div>Preparing page. . .</div>
+                    <v-progress-circular indeterminate color="primary" angle="85"/>
                 </div>
             </v-container>
         </v-content>
