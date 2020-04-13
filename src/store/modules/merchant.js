@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import cartExtras from './cartExtras.js'
 import pageComponents from './pageComponents.js' ;
-import page from './page' ;
+import pages from './pages.js' ;
 
 const merchant = {
   // data store for the current merchant
@@ -36,7 +36,7 @@ const merchant = {
   },
   modules: {
     cartExtras: cartExtras,
-    page:page,
+    pages:pages,
     pageComponents:pageComponents
   },
   /************************************************/
@@ -181,7 +181,7 @@ const merchant = {
     },
     cart_packs: (state) => {
       let ct = []
-      console.log('the packs ', state.cart)
+      // console.log('the packs ', state.cart)
       state.cart.forEach(function (v) {
         ct.push(v.name)
       })
