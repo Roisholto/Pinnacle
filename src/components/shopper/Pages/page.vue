@@ -9,7 +9,7 @@
         {{error.message}}
       </div>
       <div v-else>
-        <pageTemplate :content="page.content"></pageTemplate>
+        <PageTemplate :content="page.content"></PageTemplate>
       </div>
     </template>
   </storeLayout>
@@ -21,7 +21,7 @@ import Core from '@/class.core.js' ;
 import QuickBlog from '@/components/shopper/store/quick-blog.vue' ;
 import '@/components/globals.js' ;
 import Vue from 'vue' ;
-
+import PageTemplate from './PageTemplate.vue' ;
 
 
 export default {
@@ -57,18 +57,7 @@ export default {
 
   components:{
     storeLayout,
-
-    pageTemplate:{
-      props:{
-        content:String
-      },
-
-    render (createElement){
-      // https://snipcart.com/blog/vue-render-functions
-      const compiledTemplate = Vue.compile(this.content);
-      return compiledTemplate.render.call(this, createElement);
-      }
-    }
+    PageTemplate
   },
 
   watch:{
