@@ -17,14 +17,7 @@
             dark
             >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title
-                style="width: 230px"
-                class="ml-0 pl-0"
-                >
-                <v-btn bottom text large :to="homeLink">
-                    <span class="text-capitalize">{{appName}}</span>
-                </v-btn>
-            </v-toolbar-title>
+            <AppbarTitle :color="'white'"/>
 
             <v-spacer></v-spacer>
 
@@ -72,6 +65,7 @@ import userNav from '@/components/shopper/user-nav1.vue' ;
 import {APP_NAME} from '@/constants.js' ;
 import topNavCart from '@/components/shopper/user/top-nav-cart.vue' ;
 import {mapGetters} from 'vuex' ;
+import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 
 export default {
     props: {
@@ -112,7 +106,8 @@ export default {
     },
     components:{
         userNav,
-        topNavCart
+        topNavCart,
+        AppbarTitle
     },
     methods:{
     }
