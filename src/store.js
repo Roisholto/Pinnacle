@@ -4,7 +4,7 @@ import mainSearch from './store/modules/mainSearch.js'
 import user from './store/modules/user.js'
 import merchant from './store/modules/merchant.js'
 import ui from './store/modules/ui.js'
-import { AUTH_URL } from '@/constants.js'
+import { AUTH_URL, INSTALL_MODE } from '@/constants.js'
 import outlets from './store/modules/outlets.js'
 Vue.use(Vuex)
 
@@ -35,6 +35,23 @@ export default new Vuex.Store({
   getters: {
     authUrl: function () {
       return AUTH_URL
-    }
+      },
+
+    pageLinks:(state, getters, rootState, rootGetter)=>()=>{
+      let a = {} ;
+      let home = INSTALL_MODE == 'standard' ? {path:'/'} : {name:'store', params:{storeid: state.standalone.mid}}
+      a.home = home
+
+      let merchant_contact = INSTALL_MODE == 'standard' ?
+        {name:'merchant-contact', params:{storeid: state.merchant.info.mid}}
+        :
+        {name:'merchant-contact', params:{storeid: state.standalone.mid}}
+    
+      a.merchant_contact = merchant_contact ;
+
+      // console.log('a', a) ;
+
+      return a ;
+      }
   }
 })
