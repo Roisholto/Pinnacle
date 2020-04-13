@@ -3,16 +3,30 @@
     <v-list dense>
         <v-list-item-group color="primary">
         <v-list-item
-            :to="homeLink">
+            :to="pageLinks.home">
             <v-list-item-action>
                 <v-icon>mdi-home</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
-                    {{INSTALL_MODE == 'standard' ? APP_NAME: 'Home'}}
+                    {{INSTALL_MODE == 'standard' ? APP_NAME : 'Home'}}
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
+
+        <v-list-item
+            :to="pageLinks.merchant_contact"
+            >
+            <v-list-item-action>
+                <v-icon>mdi-circle-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>
+                    {{INSTALL_MODE == 'standard' ? 'Contact merchant' : 'Contact'}}
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+
         <v-subheader>USER</v-subheader>
         <!--<v-avatar color="indigo">
             <v-icon dark>mdi-account-circle</v-icon>
@@ -136,9 +150,16 @@ export default {
       ...mapGetters({
       isSessionActive: 'user/isSessionActive',
       authUrl: 'authUrl',
-      homeLink: 'ui/homeLink'
+      homeLink: 'ui/homeLink',
     }),
 
+    pageLinks(){
+      return this.$store.getters['pageLinks']();
+    },
+
+    merchantInfo(){
+      return this.$store.state.merchant.info ;
+    }
 
 
 
