@@ -12,25 +12,35 @@ const merchant = {
       record: {}, // info about the search query result
       items: []
     },
+    filter:{
+      data:{
+        brands:[],
+        tags:[]
+      },
+      clause:[]
+    },
     info:
-            {
-              mid: '',
-              logo: '',
-              addr: '',
-              loc: '',
-              type: ''
-            },
+      {
+        mid: '',
+        logo: '',
+        addr: '',
+        loc: '',
+        type: ''
+      },
     cart: [{ name: 'pack1', status: 'open', items: [] } ], //  [ {name:"pack1", status:"open", items:[{iteminfo1}],... }, {name:"pack1", status:"open", items:[{iteminfo1}],... } ]
     inventory:
-            {
-              categorys: [],
-              subLists: {
-                'top_list': {},
-                'all': []
-              },
-              items: {},
-              record: {}
-            },
+      {
+        categorys: [],
+        subLists: {
+          'top_list': {},
+          'all': []
+        },
+        tags:[],
+        brands:[],
+
+        items: {},
+        record: {}
+      },
 
     pref: {}
   },
@@ -51,9 +61,11 @@ const merchant = {
             subLists: {
                 'top_list': {},
                 'all': []
-                }
+              },
+            tags:[],
+            brands:[],
             }
-
+        state.filter = {data:{brands:[], tags:[]}, clause:[]} ;
         state.search = {
             search_text: '',
             record: {}, // info about the search query result
@@ -142,7 +154,60 @@ const merchant = {
     },
     empty_cart:function(state){
         state.cart = [{ name: 'pack1', status: 'open', items: [] }]
-    }
+    },
+
+    set_product_tags(state, tags){
+      state.inventory.tags = tags ;
+    },
+
+    set_product_brands(state, brands){
+      state.inventory.brands = brands ;
+    },
+
+    set_filter_clause(state, clause){
+      let f = [] ;
+      let b = [] ;
+      let t = [] ;
+
+      let selected_brands = clause.brands ;
+      let selected_tags = clause.tags ;
+
+      if(selected_brands.length){
+        b.push({brand:{data:selected_brands, factor:'equalto'}})
+      }
+
+
+      if(selected_tags.length){
+        selected_tags.forEach(function(v, index){
+          t.push({tags:{data:[`%${v}%`], 'factor':'like'}})
+          if(index < (selected_tags.length - 1 )){
+            t.push('or') ;
+          }
+        })
+      }
+
+      f = b.length && t.length ?
+          [b , 'and', t]
+          : b.length && !t.length ?
+          [b]
+          : t.length && !b.length ?
+          [t]
+          :
+          [] ;
+
+      state.filter.clause = f ;
+      state.filter.data = {brands:selected_brands, tags:selected_tags} ;
+    },
+
+    add_filter(state, payload){
+      state.filter.data.push(payload)
+    },
+
+    remove_filter(state, index){
+      state.filter.data.splice(index, 1) ;
+    },
+
+
 
   },
   /************************************************/
