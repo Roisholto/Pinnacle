@@ -28,26 +28,17 @@
     </template>
 
       <v-card style="height:calc(100vh-100px)">
-
+        <!--<v-card-title></v-card-title> -->
         <v-list>
           <v-list-item>
-            <v-list-item-avatar>
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
-            </v-list-item-avatar>
+            <v-list-item-icon>
+              <v-icon>mdi-filter</v-icon>
+            </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>John Leider</v-list-item-title>
-              <v-list-item-subtitle>Founder of Vuetify.js</v-list-item-subtitle>
+              <v-list-item-title>Filters</v-list-item-title>
+              <v-list-item-subtitle>Apply filter to result</v-list-item-subtitle>
             </v-list-item-content>
-
-            <v-list-item-action>
-              <v-btn
-                class="red--text"
-                icon
-              >
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-            </v-list-item-action>
           </v-list-item>
         </v-list>
         <v-card-text class="px-1">
