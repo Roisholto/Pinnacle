@@ -41,6 +41,15 @@ export default {
             isSessionActive:'user/isSessionActive'
         })
     },
+
+    created(){
+      let search = new URLSearchParams(location.search) ;
+  		if(search.has('token')){
+        console.log('has token', search.get('token')) ;
+        localStorage.setItem('token', search.get('token')) ;
+      }
+    },
+    
     mounted:function(){
         let vm = this ;
         // get first store from stores if deployment mode is standalone ;
