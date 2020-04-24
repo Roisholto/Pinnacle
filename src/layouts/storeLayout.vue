@@ -80,14 +80,20 @@
             <v-container
                 class=""
                 fluid
+                style="margin-bottom:80px"
                 >
                 <slot />
             </v-container>
         </v-content>
 
-
         <!--<store-footer></store-footer>-->
-        <ScrollToTop/>
+        <div style="position:fixed;right:0;bottom:0">
+          <div class="position-relative d-flex pb-4">
+            <SearchFilter v-if="$route.name == 'store-category'"/>
+            <v-spacer class="mx-2"/>
+            <ScrollToTop :isFixed="false"/>
+          </div>
+        </div>
     </v-app>
 </template>
 
@@ -103,6 +109,7 @@ import Extension from '@/components/shopper/store/extension/extension.vue' ;
 import ScrollToTop from '@/components/common/scroll-to-top.vue' ;
 import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
+import SearchFilter from '@/components/shopper/store/SearchFilter.vue' ;
 
 export default {
     props: {
@@ -163,7 +170,8 @@ export default {
         Extension,
         ScrollToTop,
         AppbarTitle,
-        AppbarNavIcon
+        AppbarNavIcon,
+        SearchFilter
     },
     mounted: function()
         {
