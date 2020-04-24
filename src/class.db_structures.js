@@ -2,7 +2,7 @@ export class TableStructures {
   constructor () {
     // merchant
     this.merchant_store = {
-      inventory: 'id, name, code, category, rate, stock',
+      inventory: 'id, name, code, category, rate, stock, brand, *tags',
       category: 'id, name, count',
       settings: '',
       managers: 'id, email, priv, created',
