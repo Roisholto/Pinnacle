@@ -85,6 +85,12 @@ export class Core {
 
     return { start: start, end: end }
   }
+
+  static getUrl(url, ext){
+    if (ext)
+      url+=`/${ext}`
+    return url ;
+  }
 }
 
 export default Core
