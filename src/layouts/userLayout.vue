@@ -53,6 +53,7 @@
             <v-container
                 class="fill-height align-start"
                 fluid
+                style="margin-bottom:80px"
                 >
                 <slot />
             </v-container>
