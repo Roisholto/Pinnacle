@@ -7,9 +7,7 @@ function resolve (dir) {
 
 module.exports = {
   outputDir:path.resolve(__dirname, "shopper"),
-  publicPath: process.env.NODE_ENV !== 'development'
-      ? '/shopper/'
-      : '/',
+  publicPath: process.env.PUBLIC_PATH,
  pwa:{
      themeColor:'#f33348',
      manifestOptions:{
