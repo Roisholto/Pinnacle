@@ -41,6 +41,7 @@ function switch_store (to, from, next)
                 // user database creation
                 const db_merchant = new Dexie('shopper_'+storeid) ;
                 db_merchant.version(1).stores(tbStructures.shopper_store) ;
+                db_merchant.version(2).stores(tbStructures.shopper_store) ;
 
                 Core.db_merchant = db_merchant ;
                 Core.merchant = storeid ;
@@ -259,7 +260,7 @@ function switch_store (to, from, next)
 
                 await Promise.all([fetch_contact, fetch_alt_contact])
                   .then(function(v){
-                    
+
                   }) ;
                 // async
                 let ws_url = SOCKET_ADDRESS+'?token='+store_data.jwt ;
