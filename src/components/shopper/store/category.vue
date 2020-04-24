@@ -1,18 +1,18 @@
 <template>
     <storeLayout>
         <div class="py-2">
-            <v-breadcrumbs class="white py-4" v-bind:items="bread"/>
+            <v-breadcrumbs class="white py-4 text-capitalize" v-bind:items="bread"/>
         </div>
 
         <template v-if="matched.length">
             <v-progress-linear color="primary" indeterminate :active="requesting" class="mb-2"/>
             <div class="grid-6-base-2">
                 <single-item-card
-                    v-for="(item) in matched"
-                    v-bind:item="inventoryItems[item]"
+                    v-for="(item) in idb_matched"
+                    v-bind:item="item"
                     v-bind:key="item.id"
-                    v-on:click="open_modal(item)"
-                    />
+                    v-on:click="open_modal(item.code)"
+                    /><!-- v-bind:item="inventoryItems[item]" v-on:click="open_modal(item)" -->
             </div>
             <template v-if="currentCode">
                 <add-to-cart v-bind:productCode="currentCode" ref="theModal" />
@@ -28,6 +28,7 @@
                 <h4>No items in this Category</h4>
             </div>
         </template>
+
     </storeLayout>
 </template>
 <script>
@@ -36,6 +37,9 @@ import singleItemCard from '@/components/common/item/single-item-card.vue'
 import { mapState } from 'vuex'
 import addToCart from '../cart/add-to-cart.vue'
 import storeLayout from '@/layouts/storeLayout.vue' ;
+import SearchFilter from './SearchFilter.vue' ;
+import Core from '@/class.core.js' ;
+import {difference} from 'lodash' ;
 
 export default {
   name: 'Category',
@@ -48,7 +52,8 @@ export default {
   components: {
     singleItemCard,
     addToCart,
-    storeLayout
+    storeLayout,
+    SearchFilter
   },
 
   data: function () {
@@ -62,20 +67,25 @@ export default {
       fetchResult:{
         inventory:[],
         record:{}
-      }
+      },
+
+      idb_matched:[]
     }
   },
+
   computed: {
     ...mapState({
       inventoryItems: function (state) {
         return state.merchant.inventory.items
-      }
+      },
+      filterClause:state=> state.merchant.filter.clause,
+      filterData:state=>state.merchant.filter.data
     }),
     capitalized_category () {
       return this.category.toUpperCase()
     },
     matched: function () {
-      return this.get_matched()
+      return this.idb_matched.map(x => x.code)
     },
     bread(){
       return [
@@ -104,21 +114,39 @@ export default {
   },
 
   watch:{
-    category(nv){
-      // restart the whole process ;
-      this.fetchCount = 0 ;
-      this.fetchResult = {inventory:[], record:{}} ;
-      this.fetch_inv() ;
+    category(){
+      this.query() ;
+    },
+
+    filterClause(nv){
+      this.query() ;
     }
   },
 
+
   mounted: function () {
-     this.fetch_inv()
+    this.query()
   },
 
   methods: {
+    query(){
+      // restart the whole process ;
+      this.fetchCount = 0 ;
+      this.fetchResult = {inventory:[], record:{}} ;
+      this.get_matched()
+      this.fetch_inv() ;
+    },
+
     fetch_inv(){
       let query = this.category != 'all' ? [{ category: { data: [this.category], factor: 'equalto' } } ] : [];
+
+      if(this.filterClause.length){
+        let xp = this.query.length ? ['and', this.filterClause] : [this.filterClause] ;
+        console.log('xp', xp)
+        query.push(...xp)
+      }
+
+
       let vm = this ;
       vm.requesting = true ;
       siJs.fetch_item_from_api(this.$route.params.storeid, query)
@@ -135,23 +163,51 @@ export default {
          vm.requesting = false
        })
     },
-    get_matched: function () {
+
+    get_matched: async function () {
       const vm = this
       let matched = []
       // load items that belong to the category ;
-      if(vm.capitalized_category == 'ALL')
-        {
-          Object.keys(vm.inventoryItems).forEach(function (v) {
-            matched.push(v)
-          })
-        return matched ;
-        }
+      let tb = Core.db_merchant.inventory ;
+      let b = this.filterData.brands ;
+      let t = this.filterData.tags ;
 
-      Object.keys(vm.inventoryItems).forEach(function (v) {
-        if (vm.inventoryItems[v].category.toString().toUpperCase() == vm.capitalized_category) {
-          matched.push(v)
-        }
-      })
+      tb = vm.capitalized_category != 'ALL' ?
+        tb.where('category').equalsIgnoreCase(vm.capitalized_category)
+        :
+        tb.toCollection() ;
+
+      tb = b.length && t.length ?
+          tb.and(function(x){
+            return b.indexOf(x.brand) > -1 ;
+          })
+          .and(function(x){
+            return _.difference(x.tags, t).length > 0
+          })
+          : b.length && !t.length ?
+            tb.and(function(x){
+              return b.indexOf(x.brand) > -1 ;
+            })
+          : t.length && !b.length ?
+            tb.and(function(x){
+              return _.difference(x.tags, t).length > 0
+            })
+          :
+          tb ;
+
+      /*tb = b.length && t.length ?
+          tb.where('brand').anyOfIgnoreCase(b).and('tags').anyOfIgnoreCase(t)
+          : b.length && !t.length ?
+          tb.where('brand').anyOfIgnoreCase(b)
+          : t.length && !b.length ?
+          tb.where('tags').anyOfIgnoreCase(t)
+          :
+          tb ;*/
+
+      tb.distinct().toArray(x=>{
+        vm.idb_matched = x ;
+      }) ;
+
       // this.matched = matched ;
       // access the api for more data if there exists ;
 
