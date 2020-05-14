@@ -2,7 +2,7 @@
 <template>
     <v-list dense>
         <v-list-item-group color="primary">
-        <v-list-item
+        <!--<v-list-item
             :to="pageLinks.home">
             <v-list-item-action>
                 <v-icon>mdi-home</v-icon>
@@ -13,6 +13,7 @@
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
+      -->
 
         <v-list-item
             :to="pageLinks.merchant_contact"
@@ -27,7 +28,9 @@
             </v-list-item-content>
         </v-list-item>
 
-        <v-subheader>USER</v-subheader>
+        <v-divider></v-divider>
+
+        <v-subheader>PERSONAL ACCOUNT</v-subheader>
         <!--<v-avatar color="indigo">
             <v-icon dark>mdi-account-circle</v-icon>
         </v-avatar>-->
@@ -47,6 +50,7 @@
 
         <v-list-item
             :to="{name:'saved-locations'}"
+            v-show="isSessionActive"
             >
             <v-list-item-action>
                 <v-icon>mdi-circle-outline</v-icon>
@@ -71,7 +75,6 @@
             </v-list-item-content>
         </v-list-item>
 
-        <v-divider></v-divider>
 
         <v-list-item
             :href="authUrl+'signout'"
