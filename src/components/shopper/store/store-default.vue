@@ -19,12 +19,11 @@
         <QuickBlog />
         <!-- End Top items -->
 
-        <NeedHelp />
         <!--- Product Categories here -->
-        <v-sheet light class="text-center py-10">
+        <!--<v-sheet light class="text-center py-10">
             <h3 class="mb-5 display-1 font-weight-light primary--text">Shop by aisle</h3>
             <product-categorys-carousel class="py-6"></product-categorys-carousel>
-        </v-sheet>
+        </v-sheet>-->
 
         <v-sheet light class="py-10" style="">
           <div class="display-1 font-weight-light mb-5 primary--text text-center mx-auto" style="max-width:500px">
@@ -35,6 +34,7 @@
 
         <JoinUs />
 
+        <NeedHelp />
         <!-- End product categorys -->
     </storeLayout>
 </template>
