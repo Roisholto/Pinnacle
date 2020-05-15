@@ -4,7 +4,7 @@
       <Default />
     </template>
     <template v-else>
-      <PageTemplate :content="page.content"/>
+      <PageRenderer :template="page.content"></PageRenderer>
     </template>
   </storeLayout>
 </template>
@@ -12,7 +12,7 @@
 import Default from './default' ;
 import {mapGetters} from 'vuex' ;
 import storeLayout from '@/layouts/storeLayout.vue' ;
-import PageTemplate from '@/components/shopper/Pages/PageTemplate.vue' ;
+import PageRenderer from '@/components/shopper/Pages/PageRenderer.js' ;
 
 export default {
   name:"ContactUs",

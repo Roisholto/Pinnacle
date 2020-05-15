@@ -9,7 +9,8 @@
         {{error.message}}
       </div>
       <div v-else>
-        <PageTemplate :content="page.content"></PageTemplate>
+        <PageRenderer :template="page.content" v-if="page.content"></PageRenderer>
+        <div v-else></div>
       </div>
     </template>
   </storeLayout>
@@ -21,8 +22,7 @@ import Core from '@/class.core.js' ;
 import QuickBlog from '@/components/shopper/store/quick-blog.vue' ;
 import '@/components/globals.js' ;
 import Vue from 'vue' ;
-import PageTemplate from './PageTemplate.vue' ;
-
+import PageRenderer from './PageRenderer.js' ;
 
 export default {
   name:"Page",
@@ -33,10 +33,23 @@ export default {
       required: true
     },
 
+    html:Boolean,
+
     data: {
       type: Object
     }
   },
+
+  beforeRouteUpdate(to, from, next){
+    this.requesting = false ;
+    this.page = {
+      title:'',
+      content:''
+    }
+    this.error = {}
+    next()
+  },
+
 
   data(){
     return {
@@ -57,7 +70,6 @@ export default {
 
   components:{
     storeLayout,
-    PageTemplate
   },
 
   watch:{
