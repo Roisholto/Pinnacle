@@ -18,6 +18,7 @@
     <v-card
 
       class="timeline-item"
+      :key="index"
       v-for="(item, index) in items">
       <v-card-title
         class="d-flex flex-column"
