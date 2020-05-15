@@ -51,13 +51,13 @@
         </v-app-bar>
         <v-content>
             <v-container
-                class="fill-height align-start"
-                fluid
-                style="margin-bottom:80px"
-                >
-                <slot />
+              class="fill-height align-start"
+              fluid
+              >
+              <slot />
             </v-container>
         </v-content>
+        <MainFooter />
     </v-app>
 </template>
 
@@ -67,7 +67,7 @@ import {APP_NAME} from '@/constants.js' ;
 import topNavCart from '@/components/shopper/user/top-nav-cart.vue' ;
 import {mapGetters} from 'vuex' ;
 import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
-
+import MainFooter from '@/components/shopper/MainFooter.vue' ;
 export default {
     props: {
       source: String,
@@ -108,7 +108,8 @@ export default {
     components:{
         userNav,
         topNavCart,
-        AppbarTitle
+        AppbarTitle,
+        MainFooter
     },
     methods:{
     }

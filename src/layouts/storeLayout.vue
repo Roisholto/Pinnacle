@@ -41,6 +41,7 @@
 
             <CartLength />
 
+            <!--<v-btn></v-btn>-->
             <v-btn
                 icon
                 large
@@ -80,13 +81,12 @@
             <v-container
                 class=""
                 fluid
-                style="margin-bottom:80px"
                 >
                 <slot />
             </v-container>
         </v-content>
 
-        <!--<store-footer></store-footer>-->
+        <MainFooter />
         <div style="position:fixed;right:0;bottom:0">
           <div class="position-relative d-flex pb-4">
             <SearchFilter v-if="$route.name == 'store-category'"/>
@@ -110,6 +110,7 @@ import ScrollToTop from '@/components/common/scroll-to-top.vue' ;
 import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
 import SearchFilter from '@/components/shopper/store/SearchFilter.vue' ;
+import MainFooter from '@/components/shopper/MainFooter.vue' ;
 
 export default {
     props: {
@@ -165,7 +166,7 @@ export default {
     components:{
         userNav,
         storeLevel1,
-        storeFooter,
+        MainFooter,
         CartLength,
         Extension,
         ScrollToTop,
