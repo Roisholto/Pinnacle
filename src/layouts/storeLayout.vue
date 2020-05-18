@@ -79,7 +79,6 @@
 
         <v-content id="store-content-body">
             <v-container
-                class=""
                 fluid
                 >
                 <slot />
