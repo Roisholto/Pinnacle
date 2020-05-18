@@ -5,13 +5,16 @@
         <div class="display-1 text-center white--text mb-2">
           Find stores
         </div>
-        <div class="mx-auto pb-6" style="max-width:25em">
+        <div class="mx-auto pb-6 px-4" style="max-width:25em">
           <v-text-field label="Search" dense solo hide-details v-model="search_text" prepend-inner-icon="mdi-magnify" clearable></v-text-field>
         </div>
       </v-sheet>
 
-      <v-sheet color="transparent" class="row">
-        <div class="col-md-4 d-flex flex-grow col-sm-6 py-2" v-for="(address, index) in sorted_address" :key="address.label">
+      <v-sheet color="transparent" class="row" v-if="sorted_address.length">
+        <div class="col-md-4 d-flex flex-grow col-sm-6 py-2"
+          v-for="(address, index) in sorted_address"
+          :key="address.label"
+          >
           <v-hover  >
             <template v-slot="{ hover }">
               <v-card class="px-2 flex-grow-1" :elevation="hover ? 6 : 3">
@@ -33,6 +36,9 @@
           </v-hover>
         </div>
       </v-sheet>
+      <div class="text-center dark--text body-1 font-weight-bold" v-else>
+        No result found
+      </div>
     </div>
   </storeLayout>
 </template>
@@ -74,6 +80,22 @@ export default {
     },
 
     sorted_address(){
+      this.filtered_address.sort(function(a, b) {
+        var nameA = a.label.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.label.toUpperCase(); // ignore upper and lowercase
+
+        if (nameA < nameB) {
+          return -1;
+        }
+
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+
       return this.filtered_address ;
     }
   },
