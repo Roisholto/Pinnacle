@@ -88,6 +88,12 @@ const routes = [
             name:"merchant-contact",
             path: 'contact',
             component: () => import('./components/shopper/store/profile/contact/contact-us.vue')
+          },
+          {
+            path:'alternate-stores',
+            name:"store-finder",
+            component: () => import('./components/shopper/store/profile/FindStores.vue'),
+            
           }
         ]
   },
