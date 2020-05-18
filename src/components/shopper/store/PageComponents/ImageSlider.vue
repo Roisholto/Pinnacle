@@ -4,7 +4,7 @@
       <v-progress-circular color="primary" indeterminate/>
     </div>
     <!--<div v-elseif="slider.items"> -->
-      <v-carousel height="350" v-else-if="slider.items">
+      <v-carousel height="350" v-else-if="slider.items" style="border-radius:8px" hide-delimiters>
         <template v-for="(item,index) in slider.items">
           <v-carousel-item :src="item.image"  :href="item.href" v-if="item.href" :key="index" />
           <v-carousel-item :src="item.image" :to="item.to" :key="index" v-else/>
