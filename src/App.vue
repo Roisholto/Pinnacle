@@ -23,6 +23,7 @@ import {mapGetters} from 'vuex' ;
 import {APP_NAME, INSTALL_MODE, API_ENDPOINT} from './constants.js' ;
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import Core from './class.core.js' ;
 
 window.addEventListener('load', function preloader(){
     $('.loader-wrapper').remove()
@@ -47,9 +48,10 @@ export default {
   		if(search.has('token')){
         console.log('has token', search.get('token')) ;
         localStorage.setItem('token', search.get('token')) ;
+        Core.Authorization = search.get('token') ;
       }
     },
-    
+
     mounted:function(){
         let vm = this ;
         // get first store from stores if deployment mode is standalone ;
