@@ -46,7 +46,7 @@
         </template>
       </v-hover>
     </div>
-    <div class="col-md-4 py-4" v-if="contact.address.length">
+    <div class="col-md-4 py-4" v-if="contact.address.length && false">
       <v-hover>
         <template v-slot="{ hover }">
           <v-card :elevation="hover ? 8 : 4" shaped>
@@ -54,7 +54,7 @@
               <v-icon color="primary " class="mr-3">
                 mdi-map-marker
               </v-icon>
-              <span class="primary--text">Branch address</span>
+              <span class="primary--text">Branches</span>
 
             </v-card-title>
             <v-list two-line>
