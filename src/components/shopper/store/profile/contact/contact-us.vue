@@ -30,7 +30,7 @@ export default {
   components:{
     Default,
     storeLayout,
-    PageTemplate
+    PageRenderer
   },
 
   methods:{
