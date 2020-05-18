@@ -4,13 +4,20 @@
         <v-dialog max-width="500" v-model="showOpening" v-if="openingModalCount == 0">
           <Opening @close-modal="closeOpeningModal"/>
         </v-dialog>
-        <div class="position-relative" style="margin:0 -15px">
+        <div class="position-relative mb-4">
           <TopBanner />
         </div>
-        <!-- Top items here [Carousel like]-->
-        <topItems class="my-2"/>
 
-        <div class="my-2">
+        <!--- Product Categories here -->
+        <v-sheet light class="text-center py-10 mb-4">
+          <h3 class="mb-5 display-1 font-weight-light primary--text">Shop by aisle</h3>
+          <product-categorys-carousel class="py-6"></product-categorys-carousel>
+        </v-sheet>
+
+        <!-- Top items here [Carousel like]-->
+        <!--<topItems class="my-2"/>-->
+
+        <div class="mb-4">
           <v-btn block color="primary" large :to="{name:'store-category', params:{category:'all'}}">
             Browse products
           </v-btn>
@@ -18,12 +25,6 @@
 
         <QuickBlog />
         <!-- End Top items -->
-
-        <!--- Product Categories here -->
-        <!--<v-sheet light class="text-center py-10">
-            <h3 class="mb-5 display-1 font-weight-light primary--text">Shop by aisle</h3>
-            <product-categorys-carousel class="py-6"></product-categorys-carousel>
-        </v-sheet>-->
 
         <v-sheet light class="py-10" style="">
           <div class="display-1 font-weight-light mb-5 primary--text text-center mx-auto" style="max-width:500px">
