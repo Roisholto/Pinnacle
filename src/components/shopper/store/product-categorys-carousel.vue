@@ -23,8 +23,11 @@ export default {
   data(){
     return {
       slickInit: false,
+
       slickOptions: {
         arrows: true,
+        autoplay:true,
+        autoplaySpeed:4000,
         variableWidth: false,
         focusOnSelect: true,
         draggable:false,
