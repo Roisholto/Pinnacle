@@ -85,6 +85,18 @@ const routes = [
           },
 
           {
+            name:"merchant-offers",
+            path: 'offers',
+            component: () => import('./components/shopper/store/offers/Offers.vue')
+          },
+
+          {
+            name:"opening-hours",
+            path: 'profile/opening-hours',
+            component: () => import('./views/OpeningHours.vue')
+          },
+
+          {
             name:"merchant-contact",
             path: 'contact',
             component: () => import('./components/shopper/store/profile/contact/contact-us.vue')
@@ -93,7 +105,7 @@ const routes = [
             path:'alternate-stores',
             name:"store-finder",
             component: () => import('./components/shopper/store/profile/FindStores.vue'),
-            
+
           }
         ]
   },
