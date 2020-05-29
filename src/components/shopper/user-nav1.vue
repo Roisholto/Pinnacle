@@ -17,6 +17,7 @@
 
         <v-list-item
             :to="pageLinks.merchant_contact"
+            v-show="false"
             >
             <v-list-item-action>
                 <v-icon>mdi-circle-outline</v-icon>
@@ -28,7 +29,7 @@
             </v-list-item-content>
         </v-list-item>
 
-        <v-divider></v-divider>
+        <v-divider v-show="false"></v-divider>
 
         <v-subheader>PERSONAL ACCOUNT</v-subheader>
         <!--<v-avatar color="indigo">
