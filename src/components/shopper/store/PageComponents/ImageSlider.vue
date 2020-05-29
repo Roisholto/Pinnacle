@@ -4,7 +4,14 @@
       <v-progress-circular color="primary" indeterminate/>
     </div>
     <!--<div v-elseif="slider.items"> -->
-      <v-carousel height="350" v-else-if="slider.items" style="border-radius:8px" hide-delimiters>
+      <v-carousel
+        height="300"
+        v-bind="carousel"
+        cycle
+        continous
+        hide-delimiter-background
+        style="border-radius:8px"
+        v-else-if="slider.items">
         <template v-for="(item,index) in slider.items">
           <v-carousel-item :src="item.image"  :href="item.href" v-if="item.href" :key="index" />
           <v-carousel-item :src="item.image" :to="item.to" :key="index" v-else/>
@@ -29,6 +36,12 @@ export default {
     mid:{
       type:String,
       required:true
+    },
+    carousel:{
+      type:Object,
+      default(){
+        return {}
+      }
     }
   },
 
