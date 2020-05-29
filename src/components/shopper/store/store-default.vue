@@ -1,10 +1,19 @@
 <template>
     <storeLayout>
         <!--top banner -->
-        <v-dialog max-width="500" v-model="showOpening" v-if="openingModalCount == 0">
+        <!--<v-dialog max-width="500" v-model="showOpening" v-if="openingModalCount == 0">
           <Opening @close-modal="closeOpeningModal"/>
-        </v-dialog>
+        </v-dialog>-->
         <div class="position-relative mb-4">
+          <div
+            style="z-index:4;
+              bottom:-50px;
+              min-height:90%"
+            :style="{left:$vuetify.breakpoint.name == 'md' ? '25px' :'50px'}"
+            class="position-absolute d-sm-none d-md-block" >
+            <Opening2/>
+          </div>
+
           <TopBanner />
         </div>
 
@@ -35,7 +44,7 @@
 
         <JoinUs />
 
-        <NeedHelp />
+        <!-- <NeedHelp /> -->
         <!-- End product categorys -->
     </storeLayout>
 </template>
@@ -47,6 +56,7 @@ import TopBanner from './top-banner.vue' ;
 import QuickBlog from './quick-blog.vue' ;
 import HowToShop from './page-elements/how-to-shop.vue' ;
 import Opening from './page-elements/opening.vue' ;
+import Opening2 from './page-elements/opening2.vue' ;
 import JoinUs from './page-elements/join-us.vue' ;
 import NeedHelp from './page-elements/need-help.vue' ;
 
@@ -71,6 +81,7 @@ export default {
     QuickBlog,
     HowToShop,
     Opening,
+    Opening2,
     JoinUs,
     NeedHelp
   },
