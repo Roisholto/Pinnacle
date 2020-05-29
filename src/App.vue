@@ -40,7 +40,10 @@ export default {
     computed:{
         ...mapGetters({
             isSessionActive:'user/isSessionActive'
-        })
+        }),
+        vuetify(){
+          return this.$vuetify ;
+        }
     },
 
     created(){
