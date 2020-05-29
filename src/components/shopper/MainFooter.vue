@@ -78,7 +78,8 @@
           header:'Help & Information',
           items:[
             {text:'Contact us', to:{name:'merchant-contact'}},
-            {text:'Find stores', to:{name:'store-finder'}},
+            // {text:'Find stores', to:{name:'store-finder'}},
+            {text:'Opening hours', to:{name:'opening-hours'}},
             {text:'FAQ', to:{name:'merchant-pages', params:{id:'faq'}}}
           ]
         },
