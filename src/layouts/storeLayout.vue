@@ -4,8 +4,9 @@
             v-model="drawer"
             app
             :clipped="false"
+            v-if="false"
             >
-            <!--:clipped="$vuetify.breakpoint.lgAndUp"-->
+            <!--:clipped="$vuetify.breakpoint.lgAndUp"  v-if="breakpoint.xs"-->
             <userNav/>
         </v-navigation-drawer>
 
@@ -16,7 +17,7 @@
             :extension-height="storeInfoHeight"
             ><!--:clipped-left="$vuetify.breakpoint.lgAndUp"-->
 
-            <AppbarNavIcon />
+            <AppbarNavIcon v-if="false"/> <!-- breakpoint.xs -->
 
             <AppbarTitle />
             <v-text-field
@@ -26,7 +27,7 @@
                 prepend-inner-icon="mdi-magnify"
                 label="Search"
                 class="hidden-sm-and-down"
-                :color="breakpoint.xs?'primary':''"
+                :color="breakpoint.xs? 'primary': '' "
                 @focus="searchFocusedEvent"
                 placeholder="Search items . . ."
                 >
@@ -35,10 +36,15 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn class="hidden-md-and-up" @click.stop="searchFocusedEvent" :color="!breakpoint.xs? 'primary' : 'white'" :dark="!breakpoint.xs" icon>
+            <v-btn class="hidden-md-and-up"
+              @click.stop="searchFocusedEvent"
+              :color="!breakpoint.xs? 'primary' : 'white'"
+              :dark="!breakpoint.xs"
+              icon>
                 <v-icon class="">mdi-magnify</v-icon>
             </v-btn>
 
+            <UserDropMenu />
             <CartLength />
 
             <!--<v-btn></v-btn>-->
@@ -110,6 +116,7 @@ import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
 import SearchFilter from '@/components/shopper/store/SearchFilter.vue' ;
 import MainFooter from '@/components/shopper/MainFooter.vue' ;
+import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
 
 export default {
     props: {
@@ -171,7 +178,8 @@ export default {
         ScrollToTop,
         AppbarTitle,
         AppbarNavIcon,
-        SearchFilter
+        SearchFilter,
+        UserDropMenu
     },
     mounted: function()
         {
@@ -198,7 +206,7 @@ export default {
         searchFocusedEvent: function () {
           // let  '/store/'+ this.$route.params.storeid+'/search' ;
           this.$router.push({ name: 'store-search', params: { storeid: this.merchantInfo.mid } })
-      },
+        },
       set_store_main_info_height: function($ev)
           {
           let el = this.$refs.extension.$el ;

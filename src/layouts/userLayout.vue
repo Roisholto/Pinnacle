@@ -4,6 +4,7 @@
             v-model="drawer"
             :clipped="$vuetify.breakpoint.lgAndUp"
             app
+            v-if="false"
             >
             <userNav/>
         </v-navigation-drawer>
@@ -13,16 +14,27 @@
         <v-app-bar
             :clipped-left="$vuetify.breakpoint.lgAndUp"
             app
-            color="primary darken-2"
+            :color="'primary darken-1'"
+            class=""
             dark
             >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="false"></v-app-bar-nav-icon>
+
             <AppbarTitle :color="'white'"/>
+
+            <StoreSearchNavigation :icon="false"/>
 
             <v-spacer></v-spacer>
 
-            <topNavCart />
-            <v-btn icon>
+            <StoreSearchNavigation :icon="true" />
+
+            <UserDropMenu :alternateColor="false"/>
+
+            <!--<topNavCart />-->
+            <CartLength :alternateColor="false"/>
+
+            <v-btn icon class="d-none">
                 <v-icon>mdi-bell</v-icon>
             </v-btn>
 
@@ -68,6 +80,9 @@ import topNavCart from '@/components/shopper/user/top-nav-cart.vue' ;
 import {mapGetters} from 'vuex' ;
 import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import MainFooter from '@/components/shopper/MainFooter.vue' ;
+import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
+import CartLength from '@/components/shopper/cart-length.vue' ;
+import StoreSearchNavigation from '@/components/shopper/store/StoreSearchNavigation.vue'
 export default {
     props: {
       source: String,
@@ -78,10 +93,15 @@ export default {
 
     }),
     computed: {
-        ...mapGetters({
-            isSessionActive:'user/isSessionActive',
-            homeLink:'ui/homeLink'
-        }),
+      breakpoint(){
+        return this.$vuetify.breakpoint ;
+      },
+
+      ...mapGetters({
+          isSessionActive:'user/isSessionActive',
+          homeLink:'ui/homeLink'
+      }),
+
       viewTitle: function () {
         let c = ''
         switch (this.$route.name) {
@@ -106,12 +126,16 @@ export default {
       }
     },
     components:{
-        userNav,
-        topNavCart,
-        AppbarTitle,
-        MainFooter
+      userNav,
+      topNavCart,
+      AppbarTitle,
+      MainFooter,
+      CartLength,
+      UserDropMenu,
+      StoreSearchNavigation
     },
     methods:{
+
     }
   }
 </script>
