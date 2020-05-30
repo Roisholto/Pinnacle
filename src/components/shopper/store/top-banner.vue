@@ -1,5 +1,5 @@
 <template>
-  <ImageSlider :name="'home'" :mid="mid" :carousel="{showArrows:false}"/>
+  <ImageSlider :name="'home'" :mid="mid" :carousel="carousel"/>
 </template>
 <script>
 import ImageSlider from './PageComponents/ImageSlider.vue' ;
@@ -9,6 +9,13 @@ export default {
   computed:{
     mid:function(){
       return this.$store.state.merchant.info.mid
+    },
+
+    carousel(){
+      return {
+        showArrows:false,
+        height: this.$vuetify.breakpoint.xs ? '180' : '300'
+      }
     }
   },
 
