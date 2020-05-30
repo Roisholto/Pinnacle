@@ -106,62 +106,62 @@ const routes = [
             name:"store-finder",
             component: () => import('./components/shopper/store/profile/FindStores.vue'),
 
+          },
+          {
+            path: 'user',
+            component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/user.vue'),
+            props: true,
+            children: [
+              {
+                path: '',
+                component: { template: '<div>User Info</div>' },
+                props: true
+              },
+
+              {
+                path: 'saved-stores',
+                name: 'saved-stores',
+                component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/saved-stores.vue'),
+                props: true
+              },
+
+              {
+                path: 'saved-locations',
+                component:{template:'<router-view/>'},
+                children:[
+                    {
+                        path:'',
+                        name: 'saved-locations',
+                        component:()=>import(/* webpackChunkName: "user-locations" */ './components/shopper/user/saved-locations/saved-locations.vue')
+                    },
+                    {
+                        name:'add-saved-locations',
+                        path:'add',
+                        props:true,
+                        component:()=>import('./components/shopper/user/saved-locations/add-location.vue')
+                    }
+                ]
+              },
+
+              {
+                path: 'saved-cards',
+                name: 'saved-cards',
+                component: { template: '<div>Your Saved cards</div>' },
+                props: true
+              },
+
+              {
+                path: 'orders',
+                name: 'orders',
+                component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/orders.vue'),
+                props: true
+              }
+            ]
           }
         ]
   },
 
-  {
-    path: '/user',
-    component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/user.vue'),
-    props: true,
-    children: [
-      {
-        path: '',
-        component: { template: '<div>User Info</div>' },
-        props: true
 
-      },
-
-      {
-        path: 'saved-stores',
-        name: 'saved-stores',
-        component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/saved-stores.vue'),
-        props: true
-      },
-
-      {
-        path: 'saved-locations',
-        component:{template:'<router-view/>'},
-        children:[
-            {
-                path:'',
-                name: 'saved-locations',
-                component:()=>import(/* webpackChunkName: "user-locations" */ './components/shopper/user/saved-locations/saved-locations.vue')
-            },
-            {
-                name:'add-saved-locations',
-                path:'add',
-                props:true,
-                component:()=>import('./components/shopper/user/saved-locations/add-location.vue')
-            }
-        ]
-      },
-
-      {
-        path: 'saved-cards',
-        name: 'saved-cards',
-        component: { template: '<div>Your Saved cards</div>' },
-        props: true
-      },
-
-      {
-        path: 'orders',
-        name: 'orders',
-        component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/orders.vue'),
-        props: true
-      }
-    ]
-  },
   {
     path: '/reprint/:reprintid',
     name: 'reprint',
@@ -270,48 +270,7 @@ router.beforeEach((to, from, next) => {
   if ($('body').hasClass('disable-scroll')) {
     $('body').removeClass('disable-scroll disable-mouse')
   }
-
-  // console.log('to', to) ;
-  if(INSTALL_MODE == 'standalone' &&  (!store.state.standalone.mid) )
-    {
-    if(!store.state.standalone.fetched_once)
-        {
-        fetch(API_ENDPOINT+'/stores/shopper')
-            .then(resp=>{return resp.json()})
-            .then(store_data=>{
-                if(! ('error' in store_data) )
-                    {
-                    if(store_data.length)
-                        {
-                        store.commit('set_standalone', store_data[0] ) ;
-                        next() ;
-                        }
-                    else
-                        {
-                        // navigate to another route with information that there was problem setting up page
-                        store.commit('set_standalone', {}) ;
-                        next({path:'/site-content'})
-                        }
-                    }
-                 })
-              .catch(e=>{
-                  console.log('error ', e)
-              })
-        }
-    else
-        {
-        if(to.path != '/site-content')
-            next({path:'/site-content'}) ;
-        else
-            next() ;
-        }
-
-    }
-else
-    {
-    next()
-    }
-
+  next() ;
 })
 
 router.afterEach(function(){
