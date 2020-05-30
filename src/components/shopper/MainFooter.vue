@@ -41,7 +41,7 @@
                     v-for="(item, j) in items.items"
                     :key="j"
                     >
-                    <span class="text-capitalize caption">
+                    <span class="text-capitalize caption font-weight-light">
                       {{item.text}}
                     </span>
                   </v-list-item>
