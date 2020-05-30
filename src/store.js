@@ -39,14 +39,12 @@ export default new Vuex.Store({
 
     pageLinks:(state, getters, rootState, rootGetter)=>()=>{
       let a = {} ;
-      let home = INSTALL_MODE == 'standard' ? {path:'/'} : {name:'store', params:{storeid: state.standalone.mid}}
+      let home = INSTALL_MODE == 'standard' ? {path:'/'} : {name:'store', params:{storeid: state.merchant.info.mid}}
       a.home = home
 
-      let merchant_contact = INSTALL_MODE == 'standard' ?
-        {name:'merchant-contact', params:{storeid: state.merchant.info.mid}}
-        :
-        {name:'merchant-contact', params:{storeid: state.standalone.mid}}
-    
+      let merchant_contact = {name:'merchant-contact', params:{storeid: state.merchant.info.mid}}
+        
+
       a.merchant_contact = merchant_contact ;
 
       // console.log('a', a) ;
