@@ -4,6 +4,7 @@
             v-model="drawer"
             :clipped="$vuetify.breakpoint.lgAndUp"
             app
+            v-if="false"
             >
             <userNav/>
         </v-navigation-drawer>
@@ -15,12 +16,17 @@
             class="appbar-extension-primary"
             :extension-height="storeInfoHeight"
             :extended="breakpoint.xs"
+            light
             >
-            <AppbarNavIcon />
+            <AppbarNavIcon v-if="false"/>
+
             <AppbarTitle />
+
             <StoreSearchInput v-if="!breakpoint.xs" :loading="requesting"/>
 
             <v-spacer></v-spacer>
+
+            <UserDropMenu />
 
             <CartLength />
 
@@ -74,7 +80,7 @@ import StoreSearchInput from '@/components/shopper/store/store-search-input.vue'
 import ScrollToTop from '@/components/common/scroll-to-top.vue' ;
 import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
-
+import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
 
 export default {
     name:"StoreSearchLayout",
@@ -133,7 +139,8 @@ export default {
         StoreSearchInput,
         ScrollToTop,
         AppbarTitle,
-        AppbarNavIcon
+        AppbarNavIcon,
+        UserDropMenu
     },
     mounted: function()
         {
