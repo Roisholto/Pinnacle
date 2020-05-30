@@ -1,7 +1,7 @@
 <template>
-  <v-btn icon exact :to="theRoute" class="" :color="breakpoint.xs ? 'white' : 'primary'">
-      <v-badge :color="breakpoint.xs ?  'white':'red darken-2'  ">
-        <template slot="badge"><span :class="breakpoint.xs ? 'red--text': ''">{{cart_count}}</span></template>
+  <v-btn icon exact :to="theRoute" class="" :color="!alternateColor ? 'white' :  breakpoint.xs ? 'white' : 'primary'">
+      <v-badge  :color="badgeColor">
+        <template slot="badge"><span :class="badgeColor =='white' ? 'red--text': ''">{{cart_count}}</span></template>
         <v-icon>mdi-cart</v-icon>
       </v-badge>
   </v-btn>
@@ -9,9 +9,21 @@
 <script>
 export default {
   name:"CartLength",
+
+  props:{
+    alternateColor:{
+      type:Boolean,
+      default:()=>true
+    }
+  },
+
   computed: {
     breakpoint(){
       return this.$vuetify.breakpoint ;
+    },
+
+    badgeColor(){
+      return !this.alternateColor ? 'white' :  this.breakpoint.xs ? 'white' : 'red darken-2'
     },
 
     theRoute: function(){
