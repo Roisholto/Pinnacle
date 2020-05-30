@@ -198,9 +198,7 @@ export default {
           }
       },
   mounted:function(){
-    // fetch the users saved stores from server ;
-    console.log('vuetify',this.$vuetify)
-    // this.fetch_orders();
+    
   },
   methods: {
       naija_currency,
