@@ -61,7 +61,6 @@ export default{
 
   computed:{
     dense(){
-      console.log('vuetify',this.$vuetify)
       return this.$vuetify.breakpoint.xs ;
     },
 
