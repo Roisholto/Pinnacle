@@ -90,7 +90,6 @@ export default {
      }
    else
      {
-     console.log(this.$route)
      let mid = this.$route.params.storeid || this.mid   ;
      let url = `${API_ENDPOINT}/components/shopper/${mid}/page-groups/${this.name}`;
      let vm = this
