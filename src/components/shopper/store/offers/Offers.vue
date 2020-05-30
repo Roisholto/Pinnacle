@@ -7,7 +7,7 @@
         </v-icon>
       </div>
       <div class="body-1 text-center">
-        Oops! No offers available, Check out later.
+        Oops! No offers available, Check back later.
       </div>
     </v-sheet>
   </storeLayout>
