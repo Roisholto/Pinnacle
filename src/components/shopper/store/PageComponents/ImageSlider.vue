@@ -5,7 +5,7 @@
     </div>
     <!--<div v-elseif="slider.items"> -->
       <v-carousel
-        height="300"
+
         v-bind="carousel"
         cycle
         continous
@@ -25,6 +25,7 @@
 import {mapGetters} from 'vuex' ;
 import {API_ENDPOINT} from '@/constants.js' ;
 import Core from '@/class.core.js' ;
+
 
 export default {
   name:"ImageSlider",
@@ -49,6 +50,9 @@ export default {
     return {
       slider:{},
       fetching:false,
+      carousel_default:{
+        height:300
+      }
     }
   },
 
@@ -64,7 +68,6 @@ export default {
       }
     else
       {
-      console.log(this.$route)
       let mid = this.$route.params.storeid || this.mid   ;
       let url = `${API_ENDPOINT}/components/shopper/${mid}/image-sliders/${this.name}`;
       let vm = this
