@@ -10,7 +10,7 @@
               bottom:-50px;
               min-height:90%"
             :style="{left:$vuetify.breakpoint.name == 'md' ? '25px' :'50px'}"
-            class="position-absolute d-sm-none d-md-block" >
+            class="position-absolute d-none d-sm-none d-md-block" >
             <Opening2/>
           </div>
 
