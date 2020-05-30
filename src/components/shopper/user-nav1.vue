@@ -19,8 +19,8 @@
             :to="pageLinks.merchant_contact"
             v-show="false"
             >
-            <v-list-item-action>
-                <v-icon>mdi-circle-outline</v-icon>
+            <v-list-item-action class>
+                <v-icon small>mdi-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -31,7 +31,7 @@
 
         <v-divider v-show="false"></v-divider>
 
-        <v-subheader>PERSONAL ACCOUNT</v-subheader>
+        <v-subheader v-if="container != 'menu'">PERSONAL ACCOUNT</v-subheader>
         <!--<v-avatar color="indigo">
             <v-icon dark>mdi-account-circle</v-icon>
         </v-avatar>-->
@@ -53,8 +53,8 @@
             :to="{name:'saved-locations'}"
             v-show="isSessionActive"
             >
-            <v-list-item-action>
-                <v-icon>mdi-circle-outline</v-icon>
+            <v-list-item-action :class="{'mr-2':smallIcon}">
+                <v-icon :small="smallIcon">mdi-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -66,8 +66,8 @@
         <v-list-item
             :to="{name:'orders'}"
             >
-            <v-list-item-action>
-                <v-icon>mdi-circle-outline</v-icon>
+            <v-list-item-action :class="{'mr-2':smallIcon}">
+                <v-icon :small="smallIcon">mdi-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -81,8 +81,8 @@
             :href="authUrl+'signout'"
             v-show="isSessionActive"
             >
-            <v-list-item-action>
-                <v-icon>mdi-logout</v-icon>
+            <v-list-item-action :class="{'mr-2':smallIcon}">
+                <v-icon :small="smallIcon">mdi-logout</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -97,8 +97,8 @@
             :href="authUrl+'password/change'"
             v-show="isSessionActive"
             >
-            <v-list-item-action>
-                <v-icon>mdi-circle</v-icon>
+            <v-list-item-action :class="{'mr-2':smallIcon}">
+                <v-icon :small="smallIcon">mdi-circle</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -111,8 +111,8 @@
             :href="authUrl+'signin'"
             v-show="!isSessionActive"
             >
-            <v-list-item-action>
-                <v-icon>mdi-login</v-icon>
+            <v-list-item-action :class="{'mr-2':smallIcon}">
+                <v-icon :small="smallIcon">mdi-login</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -124,8 +124,8 @@
         <v-list-item
             :href="authUrl+'?asa=shopper'"
             v-show="!isSessionActive">
-            <v-list-item-action>
-                <v-icon>mdi-account-plus</v-icon>
+            <v-list-item-action :class="{'mr-2':smallIcon}">
+                <v-icon :small="smallIcon">mdi-account-plus</v-icon>
             </v-list-item-action>
             <v-list-item-content>
                 <v-list-item-title>
@@ -142,6 +142,16 @@ import {APP_NAME, INSTALL_MODE} from '@/constants.js' ;
 
 export default {
   name: 'userNav',
+
+  props:{
+    container:{
+      type:String,
+      default(){
+        return 'menu'
+      }
+    }
+  },
+
   data:function(){
       return {
           localOpenState:false,
@@ -156,6 +166,10 @@ export default {
       authUrl: 'authUrl',
       homeLink: 'ui/homeLink',
     }),
+
+    smallIcon(){
+      return this.container == 'menu'
+    },
 
     pageLinks(){
       return this.$store.getters['pageLinks']();
