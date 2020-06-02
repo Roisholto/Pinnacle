@@ -9,7 +9,7 @@
                         </v-icon>
                     </router-link>
                 </div>
-                <v-card style="max-width:35rem">
+                <v-card class="mx-auto" style="max-width:35rem">
                     <v-card-title>
                         Delivery info
                     </v-card-title>
