@@ -6,14 +6,15 @@
         </div>
     <div class="remove-last-border" v-else>
             <div class="mb-2 white" v-for="(cart_item, m_index) in cart " v-bind:key="m_index">
-                <div class="rounded pa-2">
+                <v-card class="rounded pa-2">
                     <div class="d-none justify-content-between mb-2">
                         <div class="">{{cart_item.name}}</div>
                         <v-icon color="grey ">
                             mdi-dots-vertical
                         </v-icon>
                     </div>
-                    <div class="border-bottom py-3" v-for="(item,index) in cart_item.items" v-bind:key="index">
+
+                    <div class="border-bottom py-3 px-2" v-for="(item,index) in cart_item.items" v-bind:key="index">
                         <div class="d-flex flex-column">
                             <div class="text-right py-1" v-if="item_cart_error[cart_item.name] && item_cart_error[cart_item.name][item.code]">
                                 <span class="red--text body-2 text--darken-2">{{item_cart_error[cart_item.name][item.code]}} </span>
@@ -51,29 +52,33 @@
 
                         </div>
                     </div>
-                </div>
+                </v-card>
             </div>
 
-            <div class="remove-last-border py-2 border rounded pa-2 white" v-if="extra_services && cart_length > 0">
-                <div class="d-flex border-bottom rounded py-2" v-if="home_delivery">
-                    <div class="col text-capitalize font-weight-bold body-2">
-                        delivery charge
-                    </div>
-                    <div class="col body-2">
-                     <quotationInfo />
-                    </div>
+            <v-card class="remove-last-border border rounded white" v-if="extra_services && cart_length > 0">
+                <div class="pa-2">
+                  <div class="d-flex border-bottom rounded py-2" v-if="home_delivery">
+                      <div class="col text-capitalize font-weight-bold body-2">
+                          delivery charge
+                      </div>
+                      <div class="col body-2">
+                       <quotationInfo />
+                      </div>
+                  </div>
+                  <div class="d-flex py-2 body-2" v-if="is_preorder">
+                      <div class="col text-capitalize font-weight-bold small">
+                          Service charge
+                      </div>
+                      <div class="col text-center">
+                          {{to_currency(merchantPref.preorder_charge)}}
+                      </div>
+                  </div>
                 </div>
-                <div class="d-flex py-2 body-2" v-if="is_preorder">
-                    <div class="col text-capitalize font-weight-bold small">
-                        Service charge
-                    </div>
-                    <div class="col">
-                        {{to_currency(merchantPref.preorder_charge)}}
-                    </div>
-                </div>
-            </div>
+            </v-card>
             <template v-if="cart_length > 0">
-                <div class="mt-3 white rounded pa-2">
+
+                <v-card class="mt-3">
+                  <div class="pa-2 px-3">
                     <div class="border-bottom py-2" v-if="merchantPref.home_delivery == 1">
 
                         <v-checkbox
@@ -200,6 +205,7 @@
                     v-bind:defaultSelection="add_cart.defaultSelection">
                     </add-to-cart>
                 </div>
+              </v-card>
             </template>
     </div>
 </div>
