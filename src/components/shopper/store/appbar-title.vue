@@ -3,9 +3,13 @@
       style="width: 230px"
       class="ml-0 pl-0"
       >
-      <v-btn bottom text large :to="pageLinks.home" :color="color_">
+      <!--<v-btn bottom text large :to="pageLinks.home" :color="color_">
           <span class="text-capitalize">{{appName}}</span>
-      </v-btn>
+      </v-btn>-->
+      <router-link bottom text large :to="pageLinks.home" :class="[color_+'--text']">
+          <span class="text-capitalize">{{appName}}</span>
+      </router-link>
+
   </v-toolbar-title>
 </template>
 <script>
