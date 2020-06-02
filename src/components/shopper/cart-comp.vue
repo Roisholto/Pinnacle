@@ -5,8 +5,8 @@
             <emptyCartPlaceholder :type="merchantInfo.type"/>
         </div>
     <div class="remove-last-border" v-else>
-            <div class="mb-2 white" v-for="(cart_item, m_index) in cart " v-bind:key="m_index">
-                <v-card class="rounded pa-2">
+            <div class="mb-2" v-for="(cart_item, m_index) in cart " v-bind:key="m_index">
+                <v-card class="rounded pa-2 animate__animated animate__slideInDown">
                     <div class="d-none justify-content-between mb-2">
                         <div class="">{{cart_item.name}}</div>
                         <v-icon color="grey ">
@@ -55,9 +55,9 @@
                 </v-card>
             </div>
 
-            <v-card class="remove-last-border border rounded white" v-if="extra_services && cart_length > 0">
+            <v-card class="remove-last-border border rounded white animate__animated animate__slideInUp" v-if="extra_services && cart_length > 0">
                 <div class="pa-2">
-                  <div class="d-flex border-bottom rounded py-2" v-if="home_delivery">
+                  <div class="d-flex border-bottom rounded py-2 animate__animated animate__zoomIn" style="animation-duration:0.5s" v-if="home_delivery">
                       <div class="col text-capitalize font-weight-bold body-2">
                           delivery charge
                       </div>
@@ -65,7 +65,7 @@
                        <quotationInfo />
                       </div>
                   </div>
-                  <div class="d-flex py-2 body-2" v-if="is_preorder">
+                  <div class="d-flex py-2 body-2 animate__animated animate__zoomIn" style="animation-duration:0.5s" v-if="is_preorder">
                       <div class="col text-capitalize font-weight-bold small">
                           Service charge
                       </div>
@@ -77,7 +77,7 @@
             </v-card>
             <template v-if="cart_length > 0">
 
-                <v-card class="mt-3">
+                <v-card class="mt-3 animate__animated animate__slideInUp">
                   <div class="pa-2 px-3">
                     <div class="border-bottom py-2" v-if="merchantPref.home_delivery == 1">
 

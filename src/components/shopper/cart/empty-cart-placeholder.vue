@@ -1,7 +1,7 @@
 <template>
     <div class="text-center" style="padding: 3.5rem 0 ">
-        
-        <v-icon color="red" size="6.5rem">
+
+        <v-icon color="red" size="6.5rem" class="animate__animated animate__bounceIn">
             {{info.icon}}
         </v-icon>
         <div class="">
