@@ -3,7 +3,7 @@
         autofocus
         :solo-inverted="false"
         :solo="true"
-        :dense="breakpoint.xs"
+        :dense="true"
         hide-details
         height="40px"
         prepend-inner-icon="mdi-magnify"

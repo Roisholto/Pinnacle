@@ -26,6 +26,7 @@
                 hide-details
                 prepend-inner-icon="mdi-magnify"
                 label="Search"
+                dense
                 class="hidden-sm-and-down"
                 :color="breakpoint.xs? 'primary': '' "
                 @focus="searchFocusedEvent"
