@@ -122,7 +122,16 @@
                                             v-model="preorder_time"
                                             placeholder="Time"/>
                                     </div>
-
+                                    <div class="d-flex align-end">
+                                      <v-tooltip bottom>
+                                        <template v-slot:activator="{ on }">
+                                          <v-btn :to="{name:'opening-hours'}" icon v-on="on">
+                                            <v-icon>mdi-clock-outline</v-icon>
+                                          </v-btn>
+                                        </template>
+                                        <span>Checkout out our opening hours</span>
+                                      </v-tooltip>
+                                    </div>
                                 </div>
                             </div>
                             <div class="py-1" v-if="is_preorder">
