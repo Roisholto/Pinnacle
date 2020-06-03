@@ -21,7 +21,7 @@
         <template v-else>
             <div class="text-center">
                 <div class="my-3">
-                    <v-icon color="red" size="6.5rem">
+                    <v-icon color="red" class="animate__animated animate__swing" style="animation-duration:2s" size="6.5rem">
                         mdi-basket-outline
                     </v-icon>
                 </div>
