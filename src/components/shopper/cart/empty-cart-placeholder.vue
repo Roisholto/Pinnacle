@@ -6,7 +6,7 @@
         </v-icon>
         <div class="">
             {{info.text}},
-            <router-link :to="{name:'store'}">add</router-link>
+            <router-link :to="{name:'store-category', params:{category:'all'}}">add</router-link>
             .
         </div>
     </div>
