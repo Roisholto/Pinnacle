@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card class="position-relative justify-content-end align-center"
+    <v-card class="position-relative justify-content-end align-center zoom-on-hover"
       v-on:click="$emit('click')"
       :flat="mode=='carousel'"
       :tile="mode=='carousel'"
@@ -51,3 +51,10 @@ export default {
   }
 }
 </script>
+
+
+<style lang="scss">
+.zoom-on-hover:hover{
+  transform:scale(1.04) !important ;
+}
+</style>
