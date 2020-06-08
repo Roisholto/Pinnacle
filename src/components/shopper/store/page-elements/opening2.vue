@@ -4,7 +4,7 @@
 
     <v-card-text>
       <div class="headline primary--text font-weight-light text-center">
-        Welcome to <span class="font-weight-bold">{{appName}}</span> online
+        Welcome to <span class="font-weight-bold">{{appName}}</span>
       </div>
       <v-spacer class="py-2"/>
       <div class="pb-3 text-center body-2">

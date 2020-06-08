@@ -7,7 +7,7 @@
         <div class="position-relative mb-4">
           <div
             style="z-index:4;
-              bottom:-50px;
+              bottom:-80px;
               min-height:90%"
             :style="{left:$vuetify.breakpoint.name == 'md' ? '25px' :'50px'}"
             class="position-absolute d-none d-sm-none d-md-block" >

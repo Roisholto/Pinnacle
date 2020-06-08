@@ -3,7 +3,7 @@
   <v-card v-show="show">
     <v-card-title class="headline primary--text font-weight-light text-center">
       <div class="col px-2">
-        Welcome to&nbsp;<span class="font-weight-bold">{{appName}}</span>&nbsp;online
+        Welcome to&nbsp;<span class="font-weight-bold">{{appName}}</span>
       </div>
       <div class="pl-4 flex-shrink-1 ">
         <v-btn small icon @click="act">
