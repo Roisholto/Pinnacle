@@ -1,0 +1,2 @@
+[[plugins]]
+package = "get-netlify-build-assets-for-deploy"
