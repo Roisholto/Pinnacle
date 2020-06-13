@@ -9,10 +9,15 @@ module.exports = {
   outputDir:path.resolve(__dirname, "shopper"),
   publicPath: process.env.PUBLIC_PATH,
  pwa:{
-     themeColor:'#f33348',
-     manifestOptions:{
-         theme_color:'#f33348'
-     }
+   themeColor:'#f33348',
+   iconPaths:{
+     appleTouchIcon: 'img/icons/apple-icon-152x152.png',
+     // maskIcon: 'img/icons/safari-pinned-tab.svg',
+     msTileImage: 'img/icons/ms-icon-144x144.png'
+   },
+   manifestOptions:{
+    theme_color:process.env.VUE_APP_PRIMARY_COLOR,
+    }
  },
   configureWebpack: {
     resolve: {
