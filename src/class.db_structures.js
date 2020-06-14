@@ -5,7 +5,6 @@ export class TableStructures {
       inventory: 'id, name, code, category, rate, stock, brand, *tags',
       category: 'id, name, count',
       settings: '',
-      managers: 'id, email, priv, created',
       invoice: 'id, inv_id, app_id, acc, preordered, home_delivery, is_validated, prints, payment_method, payment_merchant, payment_status, amount, attr, created',
       order: 'id, items',
       dummy: '++id'
@@ -18,7 +17,6 @@ export class TableStructures {
 
     // object store for inventory similar both in merchant and client ;exept for themanagers key ;
     const shopper_store = Object.assign({}, this.merchant_store)
-    delete shopper_store.managers
     this.shopper_store = shopper_store
 
     // shopper

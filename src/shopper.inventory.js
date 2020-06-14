@@ -119,6 +119,97 @@ function search_db_for_items (val) {
 
 }
 
+/**
+  sync items ;
+*/
+// variable to hold synced items on inventory
+const unstale_items = [] ;
+// method fetch items  that have been modified after a certain date from the inventory
+export async function syncInventory (last_synced= 0, start=0, display=100)
+  {
+  let url =  API_ENDPOINT+'/inventory/shopper/'+Core.merchant+'?start='+start+'&display='+display+'&timestamp=1' ;
+  // console.log( 'syncing from syn inventory' );
+  fetch(url)
+    .then((resp)=>{
+    return resp.json() ;
+    })
+  .then(resp=>{
+    // console.log('Resp ',resp) ;
+    if(resp.error)
+      {
+      console.log('sync error', resp.error) ;
+      }
+    else
+      {
+      // update the db ;
+      // stats
+      // console.log(resp.record) ;
+      let inv = resp.inventory ;
+      let data ;
+      const db = Core.db_merchant ;
+      // db.inventory.bulkPut(inv) ;
+      inv = Core.set_db_id('code', inv) ;
+      // db.inventory.bulkPut(inv) ;
+
+      db.transaction('rw',db.inventory, async function(){
+        for(let i=0; i < inv.length ; i++)
+          {
+          data = Object.assign ( {}, inv[i] ) ;
+          unstale_items.push(data.code) ;
+          await Core.db_merchant.inventory.get({code:data['code']})
+            .then((row)=>{
+              // console.log('get row ', row) ;
+              if(row != undefined)
+                {
+                Core.db_merchant.inventory.update(row.id, data)
+                  .then(key=>{
+                  // console.log('row updated on sync',row, data)
+                  })
+                  .catch(e=>{
+                    console.log('error updating inventory on sync') ;
+                  })
+                }
+              else
+                {
+                Core.db_merchant.inventory.add(data)
+                  .then(key=>{
+                      // console.log('row added on sync', data)
+                  })
+                .catch(e=>{})
+                }
+            })
+          .catch(e=>{ console.log('Sync error', e)})
+          }
+        })
+      .then(()=>{
+        let record = resp.record ;
+        let st = parseInt(resp.record.start) ;
+        let dp = parseInt(resp.record.display);
+        let tt = parseInt(resp.record.total) ;
+
+        if(( st + dp ) < tt)
+          {
+          setTimeout(3000, sync_inventory(0,st+dp, dp) ) ;
+          }
+        else
+          {
+          //delete rows that may be obsolete ;
+          // console.log('deleteing stale items ',unstale_items) ;
+          db.inventory.where('id').noneOf(unstale_items).delete().
+            then((rows)=>{
+              console.log( rows+' items deleted after sync') ;
+            }) ;
+          }
+        })
+        .catch(e=>{ console.log('Sync transaction error', e)})
+          // we could call this function recursively until all records have been fetched ;
+          // capturing all changes in the inventoryChange variable placed in db_merchant.on(changes) ;
+          }
+      })
+      .catch( e => {console.log('sync error', e)}) ;
+    }
+
 export default {
-  fetch_item_from_api
+  fetch_item_from_api,
+  syncInventory
 }

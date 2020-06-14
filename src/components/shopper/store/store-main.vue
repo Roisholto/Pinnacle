@@ -39,6 +39,7 @@ function switch_store (to, from, next)
                 store.commit('merchant/init_store',store_data) ;
 
                 // user database creation
+                // please always update the worker.js file ;
                 const db_merchant = new Dexie('shopper_'+storeid) ;
                 db_merchant.version(1).stores(tbStructures.shopper_store) ;
                 db_merchant.version(2).stores(tbStructures.shopper_store) ;
@@ -308,6 +309,18 @@ function switch_store (to, from, next)
                     }*/
                     })
 
+                let ms =  Object.assign({},
+                  {
+                  event:"init",
+                  data:{
+                      identity:{
+                          Authorization:localStorage.getItem('token'),
+                          merchantId:localStorage.getItem('merchant'),
+                          user_access: store_data.jwt
+                          }
+                      }
+                  })
+                Core.w_Worker.postMessage(ms)
                 next() ;
                 // should close the socket on route leave ;
                 }
