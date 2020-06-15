@@ -58,6 +58,7 @@
                 fluid
                 >
                 <slot />
+                <CartChangeAlert/>
             </v-container>
         </v-content>
         <ScrollToTop/>
@@ -81,6 +82,7 @@ import ScrollToTop from '@/components/common/scroll-to-top.vue' ;
 import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
 import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
+import CartChangeAlert from '@/components/shopper/cart-change-alert.vue' ;
 
 export default {
     name:"StoreSearchLayout",
@@ -140,7 +142,8 @@ export default {
         ScrollToTop,
         AppbarTitle,
         AppbarNavIcon,
-        UserDropMenu
+        UserDropMenu,
+        CartChangeAlert
     },
     mounted: function()
         {

@@ -91,7 +91,7 @@
                 <slot />
             </v-container>
         </v-content>
-
+        <CartChangeAlert app/>
         <MainFooter />
         <div style="position:fixed;right:0;bottom:0">
           <div class="position-relative d-flex pb-4">
@@ -118,6 +118,7 @@ import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
 import SearchFilter from '@/components/shopper/store/SearchFilter.vue' ;
 import MainFooter from '@/components/shopper/MainFooter.vue' ;
 import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
+import CartChangeAlert from '@/components/shopper/cart-change-alert.vue' ;
 
 export default {
     props: {
@@ -180,7 +181,8 @@ export default {
         AppbarTitle,
         AppbarNavIcon,
         SearchFilter,
-        UserDropMenu
+        UserDropMenu,
+        CartChangeAlert
     },
     mounted: function()
         {
