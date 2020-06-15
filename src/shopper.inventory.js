@@ -137,7 +137,7 @@ export async function syncInventory (last_synced= 0, start=0, display=100)
     // console.log('Resp ',resp) ;
     if(resp.error)
       {
-      console.log('sync error', resp.error) ;
+      console.error('sync error', resp.error) ;
       }
     else
       {
@@ -155,6 +155,7 @@ export async function syncInventory (last_synced= 0, start=0, display=100)
         for(let i=0; i < inv.length ; i++)
           {
           data = Object.assign ( {}, inv[i] ) ;
+          data.rate = Core.parse_rate(data.rate)
           unstale_items.push(data.code) ;
           await Core.db_merchant.inventory.get({code:data['code']})
             .then((row)=>{
@@ -166,7 +167,7 @@ export async function syncInventory (last_synced= 0, start=0, display=100)
                   // console.log('row updated on sync',row, data)
                   })
                   .catch(e=>{
-                    console.log('error updating inventory on sync') ;
+                    // console.log('error updating inventory on sync') ;
                   })
                 }
               else
@@ -186,10 +187,11 @@ export async function syncInventory (last_synced= 0, start=0, display=100)
         let st = parseInt(resp.record.start) ;
         let dp = parseInt(resp.record.display);
         let tt = parseInt(resp.record.total) ;
-
+        // update the syncProgress ;
+        postMessage({source:'syncInventory', data:{start:st, display:dp, total:tt} }) ;
         if(( st + dp ) < tt)
           {
-          setTimeout(3000, sync_inventory(0,st+dp, dp) ) ;
+          setTimeout(3000, syncInventory(0,st+dp, dp) ) ;
           }
         else
           {
