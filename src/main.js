@@ -21,6 +21,11 @@ Core.Authorization = localStorage.getItem('token') ;
 const w_Worker = new Worker('./worker.js', { type:'module' }) ;
 Core.w_Worker = w_Worker ;
 
+w_Worker.onmessage = function(e){
+  // console.log('message received from worker', e)
+}
+
+
 import jBox from 'jbox' ;
 
 window.jBox = jBox ;
