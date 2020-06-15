@@ -5,13 +5,12 @@
       <!--<v-btn bottom text large :to="pageLinks.home" :color="color_">
           <span class="text-capitalize">{{appName}}</span>
       </v-btn>-->
-      <router-link bottom text large :to="pageLinks.home" :class="[color_+'--text']" class="d-fx">
-        <v-img src="/img/logo.png" width="48" class="float-left"></v-img>
+      <router-link bottom text large :to="pageLinks.home" :class="[color_+'--text']" class="d-flex align-center">
+        <v-img :src="logo" width="48" class="float-left mr-2"></v-img>
         <span class="display-1 hidden-sm-and-down font-weight-medium mr-0 mr-md-4 transparent">
           {{appName}}
         </span>
       </router-link>
-
   </v-toolbar-title>
 </template>
 <script>
@@ -41,6 +40,11 @@ export default {
 
     color_(){
       return this.color ? this.color : !this.breakpoint.xs ? 'primary' : 'white' ;
+    },
+
+    logo(){
+      return '/img/logo.png'
+      // return process.env.VUE_APP_ASSETS_BASE+'/logo.png' ;
     }
   },
 }
