@@ -1,13 +1,15 @@
 <template>
   <v-toolbar-title
-      style="width: 230px"
       class="ml-0 pl-0"
       >
       <!--<v-btn bottom text large :to="pageLinks.home" :color="color_">
           <span class="text-capitalize">{{appName}}</span>
       </v-btn>-->
-      <router-link bottom text large :to="pageLinks.home" :class="[color_+'--text']">
-          <span class="text-capitalize">{{appName}}</span>
+      <router-link bottom text large :to="pageLinks.home" :class="[color_+'--text']" class="d-fx">
+        <v-img src="/img/logo.png" width="48" class="float-left"></v-img>
+        <span class="display-1 hidden-sm-and-down font-weight-medium mr-0 mr-md-4 transparent">
+          {{appName}}
+        </span>
       </router-link>
 
   </v-toolbar-title>
