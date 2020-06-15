@@ -88,6 +88,23 @@
               </v-btn>
             </v-card-actions>
         </v-card>
+        <v-dialog width="400" v-model="replaceItemsDialog.model">
+          <v-card>
+            <v-card-title>Replace Item</v-card-title>
+            <v-card-text>
+              The selected item exists in your cart already, What will you like to do ?
+            </v-card-text>
+            <v-divider />
+            <v-card-actions class="flex-wrap pa-0">
+              <div class="col pa-0" >
+                <v-btn color="grey" block tile @click="replaceItemsDialog.model = false">Cancel</v-btn>
+              </div>
+              <div class="col pa-0">
+                <v-btn color="primary" block tile @click="replaceItem">Replace</v-btn>
+              </div>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
     </v-dialog>
 </template>
 <script>
@@ -129,7 +146,13 @@ export default {
       },
       cart_pack_open: false,
       modal_comp_open: false,
-      snackbar:false
+      snackbar:false,
+      replaceItemsDialog:{
+        model:false,
+        data:{
+
+        }
+      }
     }
   },
   computed: {
@@ -221,8 +244,21 @@ export default {
           },
 
           requestInputsChangeEvent:function(val){
-              console.log('val req ipt', val)
+              // console.log('val req ipt', val)
               this.product.extra_request_inputs = val
+          },
+
+          replaceItem(){
+            let cart = this.cart_list ;
+            let i = this.replaceItemsDialog.data.i, j= this.replaceItemsDialog.data.j ;
+
+            cart[i].items[j].selected_price = this.replaceItemsDialog.data.selected_price
+            cart[i].items[j].selected_qty = this.replaceItemsDialog.data.selected_qty
+            cart[i].items[j].extra_request_inputs = this.replaceItemsDialog.data.extra_request_inputs;
+
+            this.overwrite_cart(cart)
+            this.replaceItemsDialog.model = false
+            this.modal_comp_open = false
           },
 
           finalize_add_to_cart: function ($ev) {
@@ -230,19 +266,20 @@ export default {
             // check if cart is empty ;
             // if it is add a new pack ; and populate with the current item ;
             // if it is not => add to the last open pack
-            if (!this.$refs.addItemForm.validate()) {
-                if(this.prepData.request_inputs.length)
-                    {
-                    //open the expansion panel;
-                    this.$refs.reqInp.$data.expState=0;
-                    }
-
+            if (!this.$refs.addItemForm.validate())
+              {
+              if(this.prepData.request_inputs.length)
+                {
+                //open the expansion panel;
+                this.$refs.reqInp.$data.expState=0;
+                }
               return
-            }
+              }
 
             const prepData = JSON.parse(JSON.stringify(this.prepData))
             // console.log('prepdata', prepData)
             const cart = this.cart_list
+            console.log('cart', cart) ;
             let cart_item, cart_item_items
 
             for (let i = 0; i < cart.length; i++) {
@@ -257,13 +294,20 @@ export default {
                     // check if it is the same rate ;
                     item_found = true
                     if (parseFloat(cart_item_items[j].selected_rate) == parseFloat(prepData.selected_rate)) {
-                        // if it is continue ;
-                        cart_item_items[j].selected_qty = parseInt(cart_item_items[j].selected_qty) + parseFloat(prepData.selected_qty)
-                        }
+                      // if it is continue ;
+                      cart_item_items[j].selected_qty = parseInt(cart_item_items[j].selected_qty) + parseFloat(prepData.selected_qty)
+                      }
                     else
-                        {
+                      {
                       // if not ask user if he/she will like to be replace the entry or cancel the entry ;
-                      new jBox('Confirm', {
+                      this.replaceItemsDialog.data.selected_price = parseFloat(prepData.selected_price);
+                      this.replaceItemsDialog.data.selected_qty = parseFloat(prepData.selected_qty);
+                      this.replaceItemsDialog.data.extra_request_inputs = prepData.extra_request_inputs;
+                      this.replaceItemsDialog.data.j = j ;
+                      this.replaceItemsDialog.data.i = i ;
+
+                      this.replaceItemsDialog.model = true ;
+                      /* new jBox('Confirm', {
                         content: `The selected item exists in your cart already, What will you like to do`,
                         addClass: 'blue-confirmButton',
                         zIndex: 10003,
@@ -277,9 +321,8 @@ export default {
                           cart_item_items[j].selected_qty = parseFloat(prepData.selected_qty)
                           cart_item_items[j].extra_request_inputs = prepData.extra_request_inputs ;
                           // close this modal
-                          console.log('cart here', cart) ;
+                          // console.log('cart here', cart) ;
                           vm.overwrite_cart(cart)
-                          vm.item_added_notice();
                           vm.modal_comp_open = false
                         },
                         onInit: function () {
@@ -288,8 +331,7 @@ export default {
                         onCloseComplete: function () {
                           this.destroy()
                         }
-
-                      })
+                      }) */
                     }
                     break
                   }
@@ -305,10 +347,9 @@ export default {
                     }
                   })
 
-                  console.log('the data', the_data) ;
+                  // console.log('the data', the_data) ;
                   cart_item_items.push(the_data)
                   vm.overwrite_cart(cart)
-                  vm.item_added_notice();
                   vm.modal_comp_open = false
                 }
                 break
@@ -322,18 +363,7 @@ export default {
           overwrite_cart: function (cart) {
             return this.$store.dispatch('merchant/overwrite_cart', cart)
         },
-        item_added_notice:function(){
-            new jBox('Notice',{
-                content:'item added to cart',
-                color:'blue',
-                position:{x: 'center', y: 'bottom'},
-                autoClose:2000,
-                offset:{
-                    y:-40
-                }
 
-            })
-        }
     }
 }
 </script>
