@@ -47,7 +47,7 @@ function switch_store (to, from, next)
                 Core.db_merchant = db_merchant ;
                 Core.merchant = storeid ;
                 Core.merchantid = storeid ;// dont want to go back to looking for places i have used Core.merchant
-                localStorage.setItem('merchantId', storeid) ;
+                localStorage.setItem('merchantid', storeid) ;
 
                 db_merchant.transaction('rw',db_merchant.category,db_merchant.settings, db_merchant.inventory, function(){
                     // update the category
@@ -144,15 +144,15 @@ function switch_store (to, from, next)
                             case 2: // update
                                 // console.log('An object with key : '+ change.key + ' was modified to '+  JSON.stringify(change.mods)) ;
                                 // console.log(change)
-                                    if(change.table == 'inventory')
-                                        {
-                                        inventoryData.update.push(change.obj) ;
-                                        }
+                                if(change.table == 'inventory')
+                                  {
+                                  inventoryData.update.push(change.obj) ;
+                                  }
 
-                                    if(change.table== 'category')
-                                        {
-                                        categoryData.update.push({old:change.oldObj,new:change.obj}) ;
-                                        }
+                                if(change.table== 'category')
+                                  {
+                                  categoryData.update.push({old:change.oldObj,new:change.obj}) ;
+                                  }
 
                                 break ;
                             case 3: // deleted
@@ -162,7 +162,7 @@ function switch_store (to, from, next)
                                     {
                                     // let data = Array.isArray(change.obj) ?  change.obj : [change.obj] ;
                                     let code = change.oldObj.code ;
-                                    inventoryDelete.push(code) ;
+                                    inventoryData.delete.push(code) ;
                                     }
 
                                 if(change.table== 'category')
@@ -190,7 +190,7 @@ function switch_store (to, from, next)
 
                 if(inventoryData.delete.length)
                     {
-                    store.dispatch('merchnt/delete_inventory_items', inventoryData.delete)
+                    store.dispatch('merchant/delete_inventory_items', inventoryData.delete)
                     }
 
                 //categoryData
@@ -264,7 +264,7 @@ function switch_store (to, from, next)
 
                   }) ;
                 // async
-                let ws_url = SOCKET_ADDRESS+'?token='+store_data.jwt ;
+                /*let ws_url = SOCKET_ADDRESS+'?token='+store_data.jwt ;
                 const shopperSocket = new WebSocket(ws_url);
                 Core.shopperSocket = shopperSocket ;
 
@@ -282,7 +282,7 @@ function switch_store (to, from, next)
 
                 shopperSocket.addEventListener('message', function(ev){
                     console.log('socket message',ev.data)
-                    /*
+
                     try
                         {
                         const response = JSON.parse(ev.data) ;
@@ -306,19 +306,17 @@ function switch_store (to, from, next)
                     catch(e)
                         {
                         console.log(e)
-                    }*/
-                    })
+                    }
+                    })*/
 
                 let ms =  Object.assign({},
                   {
                   event:"init",
                   data:{
-                      identity:{
-                          Authorization:localStorage.getItem('token'),
-                          merchantId:localStorage.getItem('merchant'),
-                          user_access: store_data.jwt
-                          }
-                      }
+                    Authorization:localStorage.getItem('token'),
+                    merchantId:localStorage.getItem('merchantid'),
+                    user_access: store_data.jwt
+                    }
                   })
                 Core.w_Worker.postMessage(ms)
                 next() ;

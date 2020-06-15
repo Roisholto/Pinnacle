@@ -44,8 +44,7 @@ onmessage = function(e) {
             if(merchantSocket)
                 merchantSocket.close();
 
-            let db_merchant = new Dexie (local_data.identity.merchantId) ;
-
+            let db_merchant = new Dexie('shopper_'+local_data.merchantId) ;
             // console.log( 'store mid ',store.mid)
             db_merchant.version(1).stores(dbStructures.shopper_store) ;
             db_merchant.version(2).stores(dbStructures.shopper_store) ;
@@ -71,13 +70,13 @@ onmessage = function(e) {
 
             // postMessage()
 
-            Core.Authorization = local_data.identity.Authorization ;
-            Core.merchant = local_data.identity.merchantId ;
+            Core.Authorization = local_data.Authorization ;
+            Core.merchant = local_data.merchantId ;
             Core.db_merchant =  db_merchant ;
             Core.API_ENDPOINT = API_ENDPOINT ;
             //initialize socket connection to merchant ;
 
-            initSocket(local_data.identity.merchant_access) ;
+            initSocket(local_data.user_access) ;
             // race could occur here, when the user switches
             // merchant while the current sync operation is not complete;
             inventory.syncInventory() ;
