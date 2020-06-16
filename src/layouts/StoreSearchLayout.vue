@@ -22,9 +22,9 @@
 
             <AppbarTitle />
 
-            <StoreSearchInput v-if="!breakpoint.xs" :loading="requesting"/>
-
             <v-spacer></v-spacer>
+
+            <StoreSearchInput style="max-width:600px" v-if="!breakpoint.xs" :loading="requesting"/>
 
             <UserDropMenu />
 

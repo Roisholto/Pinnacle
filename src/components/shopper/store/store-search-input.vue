@@ -13,6 +13,7 @@
         placeholder="Search items . . ."
         :loading="loading"
         clearable
+        :class="[!breakpoint.xs ? 'px-4': '']"
         >
     </v-text-field>
 </template>

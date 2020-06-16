@@ -20,22 +20,26 @@
             <AppbarNavIcon v-if="false"/> <!-- breakpoint.xs -->
 
             <AppbarTitle />
+
+            <v-spacer></v-spacer>
+
             <v-text-field
-                flat
-                solo-inverted
-                hide-details
-                prepend-inner-icon="mdi-magnify"
-                label="Search"
-                dense
-                class="hidden-sm-and-down"
-                :color="breakpoint.xs? 'primary': '' "
-                @focus="searchFocusedEvent"
-                placeholder="Search items . . ."
-                >
+              flat
+              solo-inverted
+              hide-details
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+              dense
+              class="hidden-sm-and-down px-4"
+              :color="breakpoint.xs? 'primary': '' "
+              @focus="searchFocusedEvent"
+              placeholder="Search items . . ."
+
+              style="max-width:600px"
+              >
             </v-text-field>
 
 
-            <v-spacer></v-spacer>
 
             <v-btn class="hidden-md-and-up"
               @click.stop="searchFocusedEvent"
