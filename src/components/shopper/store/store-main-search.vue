@@ -1,13 +1,13 @@
 <template>
     <StoreSearchLayout @back="" :requesting="requesting">
         <div class="remove-last-border px-2 white">
-            <div class="py-3 border-bottom" v-for="(item, index) in match" v-bind:key="item">
-                <a href="javascript:;" v-on:click="open_modal(item)" class="d-flex text-dark">
+            <div class="py-3 border-bottom" v-for="(item, index) in orderedMatchItems" v-bind:key="item.code">
+                <a href="javascript:;" v-on:click="open_modal(item.code)" class="d-flex text-dark">
                     <div class="col-9 px-0">
-                        <single-item  v-bind:item="allItems[item]" v-bind:mode="'search-store'"></single-item>
+                        <single-item  v-bind:item="item" v-bind:mode="'search-store'"></single-item>
                     </div>
                     <div class="col-3 px-0 text-right align-self-center">
-                        <span class="body-2">{{to_currency(allItems[item].rate[0].price)}}</span>
+                        <span class="body-2">{{to_currency(item.rate[0].price)}}</span>
                     </div>
                 </a>
             </div>
@@ -47,6 +47,29 @@ export default  {
         {
           match: function () {
             return this.match_merchant_inventory_search(this.searchText)
+          },
+          orderedMatchItems(){
+            let a = [] ;
+            let vm = this
+            this.match.forEach(function(v){
+              a.push(vm.allItems[v])
+            }) ;
+
+            a.sort(function(a, b){
+              var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+              var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+
+              // names must be equal
+              return 0;
+            }) ;
+
+            return a ;
           },
           ...mapState({
             searchText: state => state.merchant.search.search_text,
