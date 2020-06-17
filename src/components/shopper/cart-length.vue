@@ -1,10 +1,11 @@
 <template>
-  <v-btn icon exact :to="theRoute" class="" :color="!alternateColor ? 'white' :  breakpoint.xs ? 'white' : 'primary'">
-      <v-badge  :color="badgeColor">
-        <template slot="badge"><span :class="badgeColor =='white' ? 'red--text': ''">{{cart_count}}</span></template>
-        <v-icon>mdi-cart</v-icon>
-      </v-badge>
-  </v-btn>
+  <v-badge  :color="badgeColor" overlap>
+    <template slot="badge"><span :class="badgeColor =='white' ? 'red--text': ''">{{cart_count}}</span></template>
+    <v-btn exact :to="theRoute" class="" :color="!alternateColor ? 'white' :  breakpoint.xs ? 'white' : 'primary'">
+      <v-icon>mdi-cart</v-icon>
+      Checkout
+    </v-btn>
+  </v-badge>
 </template>
 <script>
 export default {
