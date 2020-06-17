@@ -14,8 +14,8 @@
             app
             :color="breakpoint.xs ? 'primary': ''"
             class="appbar-extension-primary"
-            :extension-height="storeInfoHeight"
-            ><!--:clipped-left="$vuetify.breakpoint.lgAndUp"-->
+            :extension-height="36" 
+            ><!--:clipped-left="$vuetify.breakpoint.lgAndUp"extension-height=storeInfoHeight-->
 
             <AppbarNavIcon v-if="false"/> <!-- breakpoint.xs -->
 
