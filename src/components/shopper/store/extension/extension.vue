@@ -1,17 +1,44 @@
 <template>
-  <div class="d-flex">
+  <v-tabs
+  background-color="primary"
+  show-arrows
+  height="36"
+  >
     <CategoryMenu/>
-    <v-btn
-      text
-      dark
-      :to="{name:'merchant-offers'}"
-    >
-      <v-icon left>
-        mdi-sale
-      </v-icon>
-      offers
-    </v-btn>
-  </div>
+    <v-tab :to="{name:'merchant-offers'}">
+      <v-btn
+        text
+        dark
+      >
+        <v-icon left>
+          mdi-sale
+        </v-icon>
+        offers
+      </v-btn>
+    </v-tab>
+    <v-tab>
+      <v-btn
+        text
+        dark
+      >
+        <v-icon left>
+          mdi-circle
+        </v-icon>
+        favourites
+      </v-btn>
+    </v-tab>
+    <v-tab>
+      <v-btn
+        text
+        dark
+      >
+        <v-icon left>
+          mdi-truck
+        </v-icon>
+        Track delivery
+      </v-btn>
+    </v-tab>
+  </v-tabs>
 </template>
 <script>
 import CategoryMenu from './categories.vue' ;
