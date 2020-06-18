@@ -1,8 +1,8 @@
 <template>
     <StoreSearchLayout @back="" :requesting="requesting">
-        <div class="remove-last-border px-2 white">
-            <div class="py-3 border-bottom" v-for="(item, index) in orderedMatchItems" v-bind:key="item.code">
-                <a href="javascript:;" v-on:click="open_modal(item.code)" class="d-flex text-dark">
+        <div class="px-2 white">
+            <div class="" v-for="(item, index) in orderedMatchItems" v-bind:key="item.code">
+                <a href="javascript:;" v-on:click="open_modal(item.code)" class="d-flex black--text py-3">
                     <div class="col-9 px-0">
                         <single-item  v-bind:item="item" v-bind:mode="'search-store'"></single-item>
                     </div>
@@ -10,6 +10,7 @@
                         <span class="body-2">{{to_currency(item.rate[0].price)}}</span>
                     </div>
                 </a>
+                <v-divider inset/>
             </div>
 
             <template v-if="currentCode">
