@@ -105,7 +105,12 @@ const routes = [
             path:'alternate-stores',
             name:"store-finder",
             component: () => import('./components/shopper/store/profile/FindStores.vue'),
-
+          },
+          {
+            path:'pre-payment',
+            name:'pre-payment',
+            props:true,
+            component: () => import('./components/shopper/payment/PrePaymentPage.vue'),
           },
           {
             path: 'user',

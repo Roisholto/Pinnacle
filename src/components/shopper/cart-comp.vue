@@ -184,28 +184,37 @@
                     </v-dialog>
 
                     <v-dialog v-model="show_info_input" max-width="350" persistent>
-                        <v-card>
-                            <v-card-title>
-                                We need a little info about you.
-                            </v-card-title>
-                            <v-card-text>
-                                <v-text-field
-                                    v-model="cart_user_info_mail"
-                                    placeholder="Your email"
-                                    :rules="[rules.email]"
-                                    hint="We need to keep you informed regarding your order">
-                                </v-text-field>
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-spacer/>
-                                <v-btn text color="secondary" @click.stop="show_info_input = false">
-                                    Cancel
-                                </v-btn>
-                                <v-btn text color="primary" @click.stop="show_info_input = validate_cart_user_info() ? false : true">
-                                    Done
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
+                      <v-card>
+                        <v-list>
+                          <v-list-item>
+                            <v-list-item-icon>
+                              <v-icon color="red">mdi-information</v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                              <v-list-item-title>Basic Info</v-list-item-title>
+                              <v-list-item-subtitle>We need a little info about you</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                        <v-card-text>
+                          <v-text-field
+                            v-model="cart_user_info_mail"
+                            placeholder="Your email"
+                            :rules="[rules.email]"
+                            hint="We need to keep you informed regarding your order">
+                          </v-text-field>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer/>
+                          <v-btn text color="secondary" @click.stop="show_info_input = false">
+                            Cancel
+                          </v-btn>
+                          <v-btn text color="primary" @click.stop="show_info_input = validate_cart_user_info() ? false : true">
+                            Done
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
                     </v-dialog>
                     <add-to-cart
                     v-bind:openState="add_cart.show_modal"
@@ -589,7 +598,12 @@ export default {
                 db_user.orders.add(the_data)
                     .then(function(v){
                         delete vm.invoice_info.order_items ;
-                        vm.showPaymentForm()
+                        vm.showInvoiceQr({
+                          mid:vm.merchantInfo.mid,
+                          ref:'',
+                          invoice_id:the_data.invoice
+                        }) ;
+                        // vm.showPaymentForm()
                     })
                 .catch(e => {
                     console.log('error storring info', e)
@@ -644,6 +658,15 @@ export default {
     showPaymentForm: function (data) {
       // show the form then
       this.show_payment_form = true
+    },
+    showInvoiceQr(data){
+      let payment = {
+        merchantInfo:this.merchantInfo,
+        invoiceInfo:this.invoice_info,
+        userInfo:this.isSessionActive ? this.user : this.cartExtras.user_info
+      }
+
+      this.$router.push({name:'pre-payment', params:{invoice:data, payment}})
     },
     handle_payment_complete: function ($ev) {
       if ($ev.status == 'success') {
