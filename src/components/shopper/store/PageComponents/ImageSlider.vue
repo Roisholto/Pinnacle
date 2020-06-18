@@ -10,6 +10,7 @@
         cycle
         continous
         hide-delimiter-background
+        :hide-delimiters="breakpoint.xs"
         style="border-radius:8px"
         v-else-if="slider.items">
         <template v-for="(item,index) in slider.items">
@@ -29,6 +30,7 @@ import Core from '@/class.core.js' ;
 
 export default {
   name:"ImageSlider",
+
   props:{
     name:{
       type:[String,Number],
@@ -57,7 +59,9 @@ export default {
   },
 
   computed:{
-
+    breakpoint(){
+      return this.$vuetify.breakpoint
+    }
   },
 
   mounted(){
