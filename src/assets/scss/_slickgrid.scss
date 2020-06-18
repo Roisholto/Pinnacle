@@ -12,10 +12,10 @@
 
             // when in selected state ;
             &.selected{
-                background-color: map-get($theme-colors,"primary") ;
+                background-color: $primary ;
 
                 .form-control{
-                    border-color: map-get($theme-colors,"primary");
+                    border-color: $primary;
                     pointer-events: none;
                 }
             }
@@ -70,11 +70,3 @@
             }
         }
 }
-/*
-#grid_invoice{
-    .slick-header {
-        position:sticky ;
-        top: $section-header-height-desktop;
-    }
-}
-*/

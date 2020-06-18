@@ -6,12 +6,24 @@ a{
     text-decoration: none;
 }
 
-.more-radius-1{
-    border-radius: $q_border-radius ;
+.border         { border: $border-width solid $border-color !important; }
+.border-top     { border-top: $border-width solid $border-color !important; }
+.border-right   { border-right: $border-width solid $border-color !important; }
+.border-bottom  { border-bottom: $border-width solid $border-color !important; }
+.border-left    { border-left: $border-width solid $border-color !important; }
+
+.border-0        { border: 0 !important; }
+.border-top-0    { border-top: 0 !important; }
+.border-right-0  { border-right: 0 !important; }
+.border-bottom-0 { border-bottom: 0 !important; }
+.border-left-0   { border-left: 0 !important; }
+
+.w-100{
+  width:100% !important ;
 }
 
-.z-index-sticky{
-    z-index:$zindex-sticky ;
+.more-radius-1{
+    border-radius: $q_border-radius ;
 }
 
 // User-orders
@@ -31,6 +43,7 @@ a{
 .order-metas{
 
 }
+
 .single-order-meta{
     border-right: solid 1px map-get($grays,'500');
 
@@ -110,6 +123,6 @@ a{
     }
 }
 
-.appbar-extension-primary div.v-toolbar__extension {
-  background-color: darken(map-get($theme-colors, "primary"), 10% );
+.appbar-extension-primary div.v-toolbar__extension, .primary-darken-10 {
+  background-color: darken($primary, 10% );
 }

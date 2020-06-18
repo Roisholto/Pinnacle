@@ -46,13 +46,13 @@
 
     .jBox-Confirm-button-submit {
       border-bottom-right-radius: 4px;
-      background: map-get($theme-colors,"primary");
+      background: $primary;
       color: #fff;
     }
 
     .jBox-Confirm-button-submit:hover,
     .jBox-Confirm-button-submit:active {
-    background: lighten(map-get($theme-colors,"primary"),10%);
+    background: lighten($primary,10%);
     }
     .jBox-overlay{
         background: rgba(255,255,255,0.18) ;
@@ -90,13 +90,13 @@
 
     .jBox-Confirm-button-submit {
       border-bottom-right-radius: 4px;
-      background: map-get($theme-colors,"primary");
+      background: $primary;
       color: $black;
     }
 
     .jBox-Confirm-button-submit:hover,
     .jBox-Confirm-button-submit:active {
-    background: lighten(map-get($theme-colors,"primary"),10%);
+    background: lighten($primary,10%);
     }
 }
 
