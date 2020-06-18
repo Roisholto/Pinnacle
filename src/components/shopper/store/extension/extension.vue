@@ -3,6 +3,7 @@
   background-color="primary"
   show-arrows
   height="36"
+  optional
   >
     <CategoryMenu/>
     <v-tab :to="{name:'merchant-offers'}">

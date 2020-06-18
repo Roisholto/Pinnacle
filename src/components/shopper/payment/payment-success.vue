@@ -88,7 +88,6 @@ export default{
         },
         image_url:'',
         noticeModal:false,
-
     }
   },
   computed:{
