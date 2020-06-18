@@ -1,9 +1,9 @@
 <template>
-  <v-badge  :color="badgeColor" overlap>
-    <template slot="badge"><span :class="badgeColor =='white' ? 'red--text': ''">{{cart_count}}</span></template>
+  <v-badge :color="badgeColor+' '+badgeColorIntensity" overlap>
+    <template slot="badge"><span :class="badgeColor =='grey' ? 'red--text': ''">{{cart_count}}</span></template>
     <v-btn exact :to="theRoute" class="" :color="!alternateColor ? 'white' :  breakpoint.xs ? 'white' : 'primary'">
-      <v-icon>mdi-cart</v-icon>
-      Checkout
+      <v-icon :color="badgeColor == 'grey' ? 'primary' : ''">mdi-cart</v-icon>
+      <span :class="badgeColor == 'grey' ? 'primary--text' : ''">Checkout</span>
     </v-btn>
   </v-badge>
 </template>
@@ -24,7 +24,11 @@ export default {
     },
 
     badgeColor(){
-      return !this.alternateColor ? 'white' :  this.breakpoint.xs ? 'white' : 'red darken-2'
+      return !this.alternateColor ? 'grey' :  this.breakpoint.xs ? 'grey' : 'red'
+    },
+
+    badgeColorIntensity(){
+      return this.badgeColor == 'grey' ? 'lighten-4' : 'darken-2' ;
     },
 
     theRoute: function(){
