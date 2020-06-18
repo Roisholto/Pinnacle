@@ -17,6 +17,7 @@
             :extension-height="storeInfoHeight"
             :extended="breakpoint.xs"
             light
+            :hide-on-scroll="breakpoint.xs"
             >
             <AppbarNavIcon v-if="false"/>
 
