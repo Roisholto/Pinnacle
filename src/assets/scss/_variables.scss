@@ -60,3 +60,5 @@ $breakpoints: (
     lg: ( min-width: 992px ),
     xl: ( min-width: 1200px )
 ) !default;
+
+$positions: static, relative, absolute, fixed, sticky !default;
