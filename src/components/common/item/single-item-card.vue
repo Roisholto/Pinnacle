@@ -10,8 +10,8 @@
           contain
           aspect-ratio="1.5"
         ></v-img>-->
-        <v-card-title class="price align-center font-weight-bold d-flex" style="line-height:1.2">
-
+        <v-card-title class="price font-weight-bold d-flex-column" style="line-height:0.2">
+          <div class="d-flex flex-grow-1 align-center ">
             <div class="flex-fill" style="font-size:0.95rem;">
                 {{to_currency(item.rate[0].price)}}
             </div>
@@ -24,9 +24,10 @@
                 >
                 <v-icon size="18px">mdi-plus-circle</v-icon>
             </v-btn>
-
+          </div>
+          <ItemPromo v-if="promos.length" :promos="promo ? [promo] : promos"/>
         </v-card-title>
-        <v-card-subtitle class="py-2">
+        <v-card-subtitle class="pt-1 pb-2 text-capitalize">
             <div>
                 {{item.name}}
             </div>
@@ -70,26 +71,45 @@
 import lazyImage from '@/components/common/lazy-image.vue'
 import { publicPath } from '@/constants.js'
 import { naija_currency } from '@/functions/to_currency.js'
+import ItemPromo from './ItemPromo.vue'
 
 export default {
-  name: 'singleItemCard',
-  props: ['item', 'mode'], // mode is either search-main, search-store, invoice
+  name: 'SingleItemCard',
+
+  props: {
+    item:{
+      type:Object,
+      required:true
+    },
+    mode:String, // mode is either search-main, search-store, invoice
+
+    promo:Object // the
+  },
+
   data: function () {
     return {}
   },
+
   computed: {
     itemIcon: function () {
       let icon = this.item.images.length ? this.item.images[0] : publicPath + 'svg/shopping-cart.svg'
       return icon
+    },
+
+    promos(){
+      return this.$store.getters['merchant/promotions/qualifyingPromos'](this.item.code);
     }
   },
+
   components: {
-    lazyImage
+    lazyImage,
+    ItemPromo
   },
+
   methods: {
     to_currency (c) {
       return naija_currency(c)
-    }
+    },
   }
 }
 </script>
