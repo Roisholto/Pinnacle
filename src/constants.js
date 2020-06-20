@@ -12,7 +12,7 @@ export const MODE = process.env.NODE_ENV
 
 export const AUTH_URL = process.env.NODE_ENV == 'development' ? `http://localhost:8083/#/` : process.env.VUE_APP_AUTH_URL
 
-export const PROMOTION_SERVICE_ENDPOINT = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api' : procee.env.VUE_APP_PROMOTION_ENDPOINT
+export const PROMOTION_SERVICE_ENDPOINT = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api' : process.env.VUE_APP_PROMOTION_ENDPOINT
 
 export const APP_NAME = process.env.VUE_APP_APP_NAME
 
