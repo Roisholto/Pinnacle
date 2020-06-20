@@ -6,6 +6,9 @@ const cartExtras = {
         tel:'',
         name:''
     },
+    promotion:{
+      coupon:null
+    },
     preorder: {
       is_preorder: false,
       vars:{
@@ -59,6 +62,11 @@ const cartExtras = {
 
     update_preorder_var_date(state,v){
         state.preorder.vars.date = v ;
+    },
+
+    set_promo_code(state, v){
+      //v is expected to be a string or number ;
+      state.promotion.coupon = v ;
     }
 
   },
