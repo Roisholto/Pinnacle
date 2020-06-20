@@ -279,7 +279,7 @@ export default {
             const prepData = JSON.parse(JSON.stringify(this.prepData))
             // console.log('prepdata', prepData)
             const cart = this.cart_list
-            console.log('cart', cart) ;
+            // console.log('cart', cart) ;
             let cart_item, cart_item_items
 
             for (let i = 0; i < cart.length; i++) {

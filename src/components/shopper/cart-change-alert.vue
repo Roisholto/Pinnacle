@@ -32,7 +32,6 @@ export default {
       if(n > o)
         {
         // play audio ;
-        console.log('cart count changed')
         this.$refs.audio.play() ;
         this.snackbar.show = true ;
         }

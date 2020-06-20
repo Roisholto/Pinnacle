@@ -6,7 +6,7 @@
   optional
   >
     <CategoryMenu/>
-    <v-tab :to="{name:'merchant-offers'}">
+    <v-tab :to="{name:'merchant-promos'}">
       <v-btn
         text
         dark
