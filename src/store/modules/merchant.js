@@ -3,6 +3,7 @@ import cartExtras from './cartExtras.js'
 import pageComponents from './pageComponents.js' ;
 import pages from './pages.js' ;
 import DeliveryLocations from './DeliveryLocations.js' ;
+import Promotions from './promotions.js' ;
 
 const merchant = {
   // data store for the current merchant
@@ -49,7 +50,8 @@ const merchant = {
     cartExtras,
     pages,
     pageComponents,
-    deliveryLocations:DeliveryLocations
+    deliveryLocations:DeliveryLocations,
+    promotions:Promotions
   },
   /************************************************/
   mutations: {
@@ -272,7 +274,7 @@ const merchant = {
       // console.log('drx', drx)
       // add the pack
       return Object.assign({ selected_pack: state.cart[drx[0]].name }, state.cart[drx[0]].items[drx[1]])
-    }
+    },
   }
 }
 
