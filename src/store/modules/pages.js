@@ -21,7 +21,6 @@ const pages = {
         if(prop.title)
           state.pages[prop.title] = prop ;
         }
-
     },
 
     update_page(state, prop){
