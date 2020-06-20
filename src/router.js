@@ -85,9 +85,34 @@ const routes = [
           },
 
           {
-            name:"merchant-offers",
             path: 'offers',
-            component: () => import('./components/shopper/store/offers/Offers.vue')
+            component: () => import('./views/Promotions/Offers.vue'),
+            children:[
+              {
+                path:'',
+                name:'merchant-promos',
+                component: () => import('./views/Promotions/List.vue')
+              },
+              {
+                path:'single',
+                props:true,
+                beforeEnter(to, from, next){
+                  // comp requires name, type and items set, if not set, replace with merchant-promos
+                  let params = Object.keys(to.params)  ;
+                  if(params.indexOf('promo') != -1)
+                    {
+                    next() ;
+                    }
+                  else
+                    {
+                    next({name:'merchant-promos', params:to.params}) ;
+                    }
+                },
+                name:'single-merchant-promo',
+                component: () => import('./views/Promotions/Items.vue')
+              }
+            ],
+
           },
 
           {
