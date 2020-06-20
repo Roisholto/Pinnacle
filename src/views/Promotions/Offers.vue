@@ -1,0 +1,28 @@
+<template>
+  <storeLayout>
+    <router-view />
+  </storeLayout>
+</template>
+<script>
+import storeLayout from '@/layouts/storeLayout.vue' ;
+import mapState from 'vuex' ;
+
+
+export default {
+  name:"Offers",
+
+  data(){
+    return {}
+  },
+
+  computed:{
+    promos(){
+      return this.$store.state.merchant.promotions.promos ;
+    }
+  },
+
+  components:{
+    storeLayout,
+  }
+}
+</script>
