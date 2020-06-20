@@ -5,7 +5,7 @@
 <script>
 import Dexie from 'dexie' ;
 import 'dexie-observable' ;
-import {API_ENDPOINT, SOCKET_ADDRESS} from '@/constants.js' ;
+import {API_ENDPOINT, SOCKET_ADDRESS, PROMOTION_SERVICE_ENDPOINT} from '@/constants.js' ;
 import TableStructures from '@/class.db_structures.js' ;
 import Core from '@/class.core.js' ;
 import * as siJs from '@/shopper.inventory.js' ;
@@ -258,6 +258,18 @@ function switch_store (to, from, next)
                   .catch(e=>{
                     console.log('error fetching alternate contact', e) ;
                   });
+
+                let fetch_promotions = fetch(`${PROMOTION_SERVICE_ENDPOINT}/promotions/shopper/${storeid}`)
+                  .then(resp=>resp.json())
+                  .then(json=>{
+                    if(json.succ){
+                       store.commit('merchant/promotions/ADD_PROMO', json.data.promotions) ;
+                    }
+
+                  })
+                  .catch(e=>{
+                    console.log('error fetching promotions', e) ;
+                  }) ;
 
                 await Promise.all([fetch_contact, fetch_alt_contact])
                   .then(function(v){
