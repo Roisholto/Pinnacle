@@ -4,6 +4,7 @@
   show-arrows
   height="36"
   optional
+  grow
   >
     <CategoryMenu/>
     <v-tab :to="{name:'merchant-promos'}">
