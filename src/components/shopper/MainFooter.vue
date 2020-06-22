@@ -80,14 +80,14 @@
             {text:'Contact us', to:{name:'merchant-contact'}},
             // {text:'Find stores', to:{name:'store-finder'}},
             {text:'Opening hours', to:{name:'opening-hours'}},
-            {text:'FAQ', to:{name:'merchant-pages', params:{id:'faq'}}}
+            // {text:'FAQ', to:{name:'merchant-pages', params:{id:'faq'}}}
           ]
         },
         {
           header:'Corporate',
           items:[
             {text:'About us', to:{name:'merchant-pages', params:{id:'about-us'}}},
-            {text:'Corporate responsibility', to:{name:'merchant-pages', params:{id:'csr'}}},
+          //  {text:'Corporate responsibility', to:{name:'merchant-pages', params:{id:'csr'}}},
             {text:'Jobs', to:{name:'merchant-pages', params:{id:'jobs'}} },
 
           ]
