@@ -108,7 +108,7 @@ export default {
         .then(function(r){
           if(r.succ)
             {
-            vm.page = r.data
+            vm.page = Object.assign({}, r.data, {content:'<div class="page-content">'+r.data.content+'</div>'})
             }
           else
             {
