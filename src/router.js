@@ -138,6 +138,11 @@ const routes = [
             component: () => import('./components/shopper/payment/PrePaymentPage.vue'),
           },
           {
+            path:'track-delivery',
+            name:'track-delivery',
+            component: ()=>import('./components/shopper/store/Delivery/TrackDelivery.vue'),
+          },
+          {
             path: 'user',
             component: () => import(/* webpackChunkName: "user" */ './components/shopper/user/user.vue'),
             props: true,
