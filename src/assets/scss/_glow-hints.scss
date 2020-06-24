@@ -1,0 +1,5 @@
+@import 'mixin/glow-hints' ;
+
+@each $color in map-keys($theme-colors) {
+  @include glow-hint($color, map-get($theme-colors, $color))
+}

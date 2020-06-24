@@ -1,0 +1,22 @@
+@mixin glow-hint($name, $color){
+  @keyframes anim-glow-#{$name} {
+  	0% {
+  		box-shadow: 0 0 rgba($color, 1);
+  	}
+  	100% {
+  		box-shadow: 0 0 10px 8px transparent;
+  		border-width: 2px;
+  	}
+  }
+
+
+  .glow-effect.#{$name}	{
+  	border-radius: 50%;
+  	border: 2px solid $color;
+  	width: 10px;
+  	height: 10px;
+  	text-align: center;
+  	position: relative;
+  	animation: anim-glow-#{$name} 2s ease infinite;
+  }
+}
