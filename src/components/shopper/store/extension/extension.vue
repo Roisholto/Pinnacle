@@ -6,7 +6,9 @@
   optional
   grow
   >
-    <CategoryMenu/>
+    <v-tab>
+      <CategoryMenu/>
+    </v-tab>
     <v-tab :to="{name:'merchant-promos'}">
       <v-btn
         text
@@ -29,7 +31,7 @@
         favourites
       </v-btn>
     </v-tab>
-    <v-tab>
+    <v-tab :to="{name:'track-delivery'}">
       <v-btn
         text
         dark
