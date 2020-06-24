@@ -269,4 +269,156 @@ a:hover {
   position: sticky !important;
 }
 
+@keyframes anim-glow-primary {
+  0% {
+    box-shadow: 0 0 #f33348;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.primary {
+  border-radius: 50%;
+  border: 2px solid #f33348;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-primary 2s ease infinite;
+}
+
+@keyframes anim-glow-secondary {
+  0% {
+    box-shadow: 0 0 #6c757d;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.secondary {
+  border-radius: 50%;
+  border: 2px solid #6c757d;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-secondary 2s ease infinite;
+}
+
+@keyframes anim-glow-success {
+  0% {
+    box-shadow: 0 0 #28a745;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.success {
+  border-radius: 50%;
+  border: 2px solid #28a745;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-success 2s ease infinite;
+}
+
+@keyframes anim-glow-info {
+  0% {
+    box-shadow: 0 0 #17a2b8;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.info {
+  border-radius: 50%;
+  border: 2px solid #17a2b8;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-info 2s ease infinite;
+}
+
+@keyframes anim-glow-warning {
+  0% {
+    box-shadow: 0 0 #ffc107;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.warning {
+  border-radius: 50%;
+  border: 2px solid #ffc107;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-warning 2s ease infinite;
+}
+
+@keyframes anim-glow-danger {
+  0% {
+    box-shadow: 0 0 #dc3545;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.danger {
+  border-radius: 50%;
+  border: 2px solid #dc3545;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-danger 2s ease infinite;
+}
+
+@keyframes anim-glow-light {
+  0% {
+    box-shadow: 0 0 #f8f9fa;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.light {
+  border-radius: 50%;
+  border: 2px solid #f8f9fa;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-light 2s ease infinite;
+}
+
+@keyframes anim-glow-dark {
+  0% {
+    box-shadow: 0 0 #343a40;
+  }
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+.glow-effect.dark {
+  border-radius: 50%;
+  border: 2px solid #343a40;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow-dark 2s ease infinite;
+}
+
 /*# sourceMappingURL=shopper.css.map */
