@@ -1,28 +1,46 @@
 <template>
-    <div class="white pa-2">
+    <div class="">
         <div class="py-2 d-flex flex-column mb-4">
             <template v-if="displayOptions.showMerchant">
                 <storeStyleCentered class="mb-8" :store="order.merchant"/>
             </template>
-            <div class="d-flex row py-1" v-if="displayOptions.showInvoiceId">
-                <div class="col-4 subtitle-2 ">Ref</div>
-                <div class="col-8 body-2 font-weight-medium text-uppercase">{{order.inv_id}}</div>
-            </div>
-            <div class="d-flex row py-1">
-                <div class="col-4 subtitle-2 ">Order Date</div>
-                <div class="col-8 body-2 font-weight-medium">{{order_date}}</div>
-            </div>
-            <div class="d-flex row py-1">
-                <div class="col-4 subtitle-2">Home delivery</div>
-                <div class="col-8 body-2">{{delivery_}}</div>
-            </div>
-            <div class="d-flex row py-1">
-                <div class="col-4 subtitle-2">Preorder</div>
-                <div class="col-8 body-2">{{preorder_date}}</div>
-            </div>
-            <div class="d-flex row py-1 align-center">
-                <div class="col-4 subtitle-2">Payment status</div>
-                <div class="col-8 body-2">
+
+            <v-list>
+              <v-list-item v-if="displayOptions.showInvoiceId">
+                <v-list-item-content>
+                  <v-list-item-subtitle>Ref</v-list-item-subtitle>
+                  <div class="body-2 font-weight-medium text-uppercase">{{order.inv_id}}</div>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-subtitle>Order Date</v-list-item-subtitle>
+                  <div class="body-2 font-weight-medium text-uppercase">{{order_date}}</div>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-subtitle>Home delivery</v-list-item-subtitle>
+                  <div>
+                    <div class="text-capitalize pb-1 body-2">{{delivery_}}</div>
+                    <GetDeliveryStatus class="pl-2" :text="order.inv_id" v-if="order.home_delivery" />
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-subtitle>Preorder</v-list-item-subtitle>
+                  <div class="body-2 font-weight-medium text-uppercase">{{preorder_date}}</div>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-subtitle>Payment status</v-list-item-subtitle>
+                  <div class="pt-2">
                     <v-chip
                         small
                         class="mr-2"
@@ -43,9 +61,11 @@
                         Get qrcode
                         <v-icon right small>mdi-qrcode</v-icon>
                     </v-chip>
-                </div>
-            </div>
-            <!--<order-meta v-bind:meta="metadata"></order-meta>-->
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
         </div>
 
         <order-items v-bind:items="order_detail"></order-items>
@@ -68,6 +88,7 @@ import {API_ENDPOINT} from '@/constants.js' ;
 import {mapGetters} from 'vuex' ;
 import Payment_succ_Comp from '@/components/shopper/payment/payment-success.vue'
 import storeStyleCentered from '@/components/common/store/store-style-centered.vue' ;
+import GetDeliveryStatus from '@/components/shopper/store/Delivery/GetDeliveryStatus.vue' ;
 
 export default {
   name:"orderDetail",
@@ -148,7 +169,8 @@ export default {
     'none': {
       template: '<div></div>'
     },
-    storeStyleCentered
+    storeStyleCentered,
+    GetDeliveryStatus
   },
   watch:{
       showModal:function(v){
@@ -218,6 +240,9 @@ export default {
                 })
             .catch(e=>{console.log('e',e)})
             },
+        fetch_status(){
+
+        } ,
         modalShown: function () {
             this.modal_view = 'payment-succ'
             },
