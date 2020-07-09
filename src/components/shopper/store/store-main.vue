@@ -259,6 +259,16 @@ function switch_store (to, from, next)
                     console.log('error fetching alternate contact', e) ;
                   });
 
+                let fetch_product_category_menu = fetch(`${API_ENDPOINT}/components/shopper/${storeid}/menu/product-category`)
+                  .then(resp=>resp.json())
+                  .then(json=>{
+                    if(json.succ)
+                      store.commit('merchant/pageComponents/menus/add_product_category', json.data.data) ;
+                  })
+                  .catch(e=>{
+                    console.log('error fetching alternate contact', e) ;
+                  });
+
                 let fetch_promotions = fetch(`${PROMOTION_SERVICE_ENDPOINT}/promotions/shopper/${storeid}`)
                   .then(resp=>resp.json())
                   .then(json=>{
