@@ -43,6 +43,12 @@ const routes = [
             props: true
           },
           {
+            path: 'navigation/category',
+            component: () => import('./components/shopper/store/ProductCategory/CategoryPage.vue'),
+            name: 'category-nav',
+            props: true
+          },
+          {
             path: 'cart',
             component: {
               template: `<router-view/>`
