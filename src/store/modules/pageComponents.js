@@ -1,10 +1,13 @@
 import AltContact from './page-components/AltContact.js' ;
+import Menus from './page-components/Menus.js' ;
+
 const pageComponents = {
   namespaced:true,
 
   state:{
     image_sliders:{},
-    page_groups:{}
+    page_groups:{},
+    
   },
 
   mutations:{
@@ -32,7 +35,8 @@ const pageComponents = {
   },
 
   modules:{
-    altContact:AltContact
+    altContact:AltContact,
+    menus:Menus
   }
 }
 
