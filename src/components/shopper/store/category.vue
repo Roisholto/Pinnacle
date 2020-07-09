@@ -1,7 +1,7 @@
 <template>
     <storeLayout>
         <div class="py-2">
-            <v-breadcrumbs class="white py-4 text-capitalize" v-bind:items="bread"/>
+            <v-breadcrumbs class="white py-4 text-capitalize" v-bind:items="bread2"/>
         </div>
 
         <template v-if="matched.length">
@@ -40,6 +40,7 @@ import storeLayout from '@/layouts/storeLayout.vue' ;
 import SearchFilter from './SearchFilter.vue' ;
 import Core from '@/class.core.js' ;
 import {difference} from 'lodash' ;
+import {searchMenuIndex, getQualifyingCategorys} from './ProductCategory/category-stats.js' ;
 
 export default {
   name: 'Category',
@@ -47,7 +48,7 @@ export default {
     category: {
       required: true,
       type: String
-    }
+    },
   },
   components: {
     singleItemCard,
@@ -69,6 +70,8 @@ export default {
         record:{}
       },
 
+      bread3:[],
+
       idb_matched:[]
     }
   },
@@ -79,14 +82,62 @@ export default {
         return state.merchant.inventory.items
       },
       filterClause:state=> state.merchant.filter.clause,
-      filterData:state=>state.merchant.filter.data
+      filterData:state=>state.merchant.filter.data,
+      categoryMenu:state=>state.merchant.pageComponents.menus.product_category,
+      categorys:state=>state.merchant.inventory.categorys
     }),
+
     capitalized_category () {
       return this.category.toUpperCase()
     },
+
+    categoryAsArray(){
+      return this.capitalized_category.split('|').filter(x=> x.length) ;
+    },
+
+    // Assume the current
+    matchedCategory(){
+      let vm = this ;
+      let c = this.categorys.map( x=>{ return {id:x.id, name:x.name.toUpperCase()} })
+        .filter(function(x){
+          return x.name == vm.categoryAsArray[0] ;
+        }) ;
+
+      return c[0]  ;
+    },
+
     matched: function () {
       return this.idb_matched.map(x => x.code)
     },
+
+    bread2(){
+      let map = this.mapCategoryToParent() ;
+      map = map.map(function (x){
+        let cats = getQualifyingCategorys(x).map(x=> x.name).join('|') ;
+        return {
+          text:x.name,
+          exact:true,
+          to:{
+            name: 'store-category',
+            params: {
+              category:cats
+            }
+          }
+        }
+      }) ;
+
+      map.unshift({
+        text: 'Store',
+        exact:true,
+        to: {
+          name: 'store',
+          params:this.$router.params
+        }
+      })
+
+      return map ;
+    },
+
     bread(){
       return [
         {
@@ -125,10 +176,21 @@ export default {
 
 
   mounted: function () {
-    this.query()
+    this.query() ;
+    this.bread3 = this.mapCategoryToParent() ;
   },
 
   methods: {
+    mapCategoryToParent(){
+      if(this.capitalized_category != 'ALL')
+        {
+        let a = searchMenuIndex(this.categoryMenu,this.matchedCategory)
+
+        return a
+        }
+
+      return [] ;
+    },
     query(){
       // restart the whole process ;
       this.fetchCount = 0 ;
@@ -138,7 +200,7 @@ export default {
     },
 
     fetch_inv(){
-      let query = this.category != 'all' ? [{ category: { data: [this.category], factor: 'equalto' } } ] : [];
+      let query = this.category != 'all' ? [{ category: { data: this.categoryAsArray, factor: 'equalto' } } ] : [];
 
       if(this.filterClause.length){
         let xp = this.query.length ? ['and', this.filterClause] : [this.filterClause] ;
@@ -173,7 +235,7 @@ export default {
       let t = this.filterData.tags ;
 
       tb = vm.capitalized_category != 'ALL' ?
-        tb.where('category').equalsIgnoreCase(vm.capitalized_category)
+        tb.where('category').anyOfIgnoreCase(vm.categoryAsArray)
         :
         tb.toCollection() ;
 
