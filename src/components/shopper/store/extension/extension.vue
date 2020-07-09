@@ -6,9 +6,9 @@
   optional
   grow
   >
-    <v-tab>
-      <CategoryMenu/>
-    </v-tab>
+
+    <CategoryMenu/>
+
     <v-tab :to="{name:'merchant-promos'}">
       <v-btn
         text
@@ -45,7 +45,7 @@
   </v-tabs>
 </template>
 <script>
-import CategoryMenu from './categories.vue' ;
+import CategoryMenu from './ProductCategory/categories.vue' ;
 export default {
   name:"Extension",
   data(){
