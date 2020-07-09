@@ -197,6 +197,10 @@ a {
   background-color: #e60e25;
 }
 
+.transparent .v-window.v-item-group.v-tabs-items {
+  background-color: transparent;
+}
+
 .input-border-bottom {
   border: none;
   border-bottom: 2px solid;

@@ -126,3 +126,8 @@ a{
 .appbar-extension-primary div.v-toolbar__extension, .primary-darken-10 {
   background-color: darken($primary, 10% );
 }
+
+// make transparent backgrounds in tab ;
+.transparent .v-window.v-item-group.v-tabs-items {
+  background-color: transparent ;
+}
