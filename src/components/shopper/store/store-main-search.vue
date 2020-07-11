@@ -7,7 +7,7 @@
                         <single-item  v-bind:item="item" v-bind:mode="'search-store'"></single-item>
                     </div>
                     <div class="col-3 px-0 text-right align-self-center">
-                        <span class="body-2">{{to_currency(item.rate[0].price)}}</span>
+                        <span class="body-2">{{to_currency(item.rate.length ? item.rate[0].price : 0)}}</span>
                     </div>
                 </a>
                 <v-divider inset/>
