@@ -1,7 +1,7 @@
 <template lang="html">
   <v-sheet color="transparent">
     <v-row>
-      <div :style="{height:height}" style="overflow-y:auto" class="col-3 px-0">
+      <div :style="{height:height}" style="overflow-y:auto" class="col-3 col-sm-2 px-0">
         <v-item-group v-model="cTab"
           mandatory
           class=""

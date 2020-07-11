@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="col-sm-3 col-4">
+  <div class="col-6 col-sm-3 py-2 col-md-2">
     <v-hover
       v-slot:default="{ hover }">
       <v-card
@@ -9,7 +9,7 @@
         :to="getStats(category).route"
       >
         <v-img :src="category.image" height="100" width="100"></v-img>
-        <div class="py-1 body-2 text-center">{{category.name}}</div>
+        <div class="py-1 body-2 text-center grey--text">{{category.name}}</div>
 
       </v-card>
     </v-hover>
