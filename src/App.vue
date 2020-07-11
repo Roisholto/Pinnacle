@@ -1,19 +1,19 @@
 <template>
-    <div id="app">
-        <div class="loader-wrapper">
-            <!---->
-            <div class="loader">
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__ball"></div>
-            </div>
-            <div class="brand-name">{{appName}}</div>
+  <div id="app">
+    <div class="loader-wrapper">
+        <!---->
+        <div class="loader">
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__ball"></div>
         </div>
-        <router-view></router-view>
+        <div class="brand-name">{{appName}}</div>
     </div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
