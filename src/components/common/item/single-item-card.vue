@@ -13,7 +13,7 @@
         <v-card-title class="price font-weight-bold d-flex-column" style="line-height:0.2">
           <div class="d-flex flex-grow-1 align-center ">
             <div class="flex-fill" style="font-size:0.95rem;">
-                {{to_currency(item.rate[0].price)}}
+                {{to_currency(item.rate.length ? item.rate[0].price : 0)}}
             </div>
             <v-btn
                 icon
