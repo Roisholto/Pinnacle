@@ -281,7 +281,7 @@ function switch_store (to, from, next)
                     console.log('error fetching promotions', e) ;
                   }) ;
 
-                await Promise.all([fetch_contact, fetch_alt_contact])
+                await Promise.all([fetch_contact, fetch_alt_contact, fetch_product_category_menu])
                   .then(function(v){
 
                   }) ;
