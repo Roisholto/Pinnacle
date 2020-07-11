@@ -1,7 +1,7 @@
 <template>
     <storeLayout>
         <div class="py-2">
-            <v-breadcrumbs class="white py-4 text-capitalize" v-bind:items="bread2"/>
+            <v-breadcrumbs class="white py-4 text-capitalize" v-bind:items="bread"/>
         </div>
 
         <template v-if="matched.length">
@@ -70,8 +70,6 @@ export default {
         record:{}
       },
 
-      bread3:[],
-
       idb_matched:[]
     }
   },
@@ -110,7 +108,7 @@ export default {
       return this.idb_matched.map(x => x.code)
     },
 
-    bread2(){
+    bread(){
       let map = this.mapCategoryToParent() ;
       map = map.map(function (x){
         let cats = getQualifyingCategorys(x).map(x=> x.name).join('|') ;
@@ -136,31 +134,6 @@ export default {
       })
 
       return map ;
-    },
-
-    bread(){
-      return [
-        {
-        text: 'Store',
-        link:true,
-        disabled: false,
-        exact:true,
-        // href:this.$router.resolve({name:'store', params: this.$route.params}).href,
-        to: { name: 'store', params:this.$router.params  }
-        },
-        /* {
-                    text: 'Category',
-                    to: { name: 'store-category', params:this.$router.params}
-                }, */
-        {
-          text: this.category,
-          disabled: false,
-          link:true,
-           exact: true,
-          // href:'wirld',
-         to: { name: 'store-category', params: this.category }
-        }
-      ]
     }
   },
 
@@ -177,17 +150,19 @@ export default {
 
   mounted: function () {
     this.query() ;
-    this.bread3 = this.mapCategoryToParent() ;
   },
 
   methods: {
     mapCategoryToParent(){
-      if(this.capitalized_category != 'ALL')
-        {
-        let a = searchMenuIndex(this.categoryMenu,this.matchedCategory)
+      if(this.categoryMenu.length && this.matchedCategory){
+        if(this.capitalized_category != 'ALL')
+          {
+          let a = searchMenuIndex(this.categoryMenu,this.matchedCategory)
 
-        return a
-        }
+          return a
+          }
+      }
+
 
       return [] ;
     },
