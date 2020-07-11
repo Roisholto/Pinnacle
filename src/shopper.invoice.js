@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 export function validate_preordered (time, duration) {
-  console.log('duration is', duration)
+  //console.log('duration is', duration)
   // time is expected to be a datetime in seconds
   let date = moment.unix(time)
   let now = moment()
