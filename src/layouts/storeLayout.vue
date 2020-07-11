@@ -1,5 +1,6 @@
 <template>
     <v-app id="">
+      <RouteLoadingOverlay />
         <v-navigation-drawer
             v-model="drawer"
             app
@@ -124,6 +125,8 @@ import SearchFilter from '@/components/shopper/store/SearchFilter.vue' ;
 import MainFooter from '@/components/shopper/MainFooter.vue' ;
 import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
 import CartChangeAlert from '@/components/shopper/cart-change-alert.vue' ;
+import RouteLoadingOverlay from '@/components/shopper/RouteLoadingOverlay.vue' ;
+
 
 export default {
     props: {
@@ -176,7 +179,9 @@ export default {
 
 
      },
+
     components:{
+       RouteLoadingOverlay,
         userNav,
         storeLevel1,
         MainFooter,

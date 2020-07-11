@@ -1,5 +1,6 @@
 <template>
     <v-app id="">
+      <RouteLoadingOverlay />
         <v-navigation-drawer
             v-model="drawer"
             :clipped="$vuetify.breakpoint.lgAndUp"
@@ -84,6 +85,7 @@ import AppbarTitle from '@/components/shopper/store/appbar-title.vue' ;
 import AppbarNavIcon from '@/components/shopper/store/appbar-nav-icon.vue' ;
 import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
 import CartChangeAlert from '@/components/shopper/cart-change-alert.vue' ;
+import RouteLoadingOverlay from '@/components/shopper/RouteLoadingOverlay.vue' ;
 
 export default {
     name:"StoreSearchLayout",
@@ -134,17 +136,18 @@ export default {
          },
      },
     components:{
-        userNav,
-        storeLevel1,
-        storeFooter,
-        CartLength,
-        Extension,
-        StoreSearchInput,
-        ScrollToTop,
-        AppbarTitle,
-        AppbarNavIcon,
-        UserDropMenu,
-        CartChangeAlert
+      RouteLoadingOverlay,
+      userNav,
+      storeLevel1,
+      storeFooter,
+      CartLength,
+      Extension,
+      StoreSearchInput,
+      ScrollToTop,
+      AppbarTitle,
+      AppbarNavIcon,
+      UserDropMenu,
+      CartChangeAlert
     },
     mounted: function()
         {

@@ -311,11 +311,14 @@ router.beforeEach((to, from, next) => {
   if ($('body').hasClass('disable-scroll')) {
     $('body').removeClass('disable-scroll disable-mouse')
   }
+
+  store.commit('ui/setLoadingRoute', true) ;
   next() ;
 })
 
 router.afterEach(function(){
   window.scroll({top:0,left:0,behavior:"smooth"}) ;
+  store.commit('ui/setLoadingRoute', false) ;
 }) ;
 
 function setupError(to){

@@ -1,5 +1,6 @@
 <template>
     <v-app id="">
+      <RouteLoadingOverlay />
         <v-navigation-drawer
             v-model="drawer"
             :clipped="$vuetify.breakpoint.lgAndUp"
@@ -83,6 +84,8 @@ import MainFooter from '@/components/shopper/MainFooter.vue' ;
 import UserDropMenu from '@/components/shopper/UserDropMenu.vue' ;
 import CartLength from '@/components/shopper/cart-length.vue' ;
 import StoreSearchNavigation from '@/components/shopper/store/StoreSearchNavigation.vue'
+import RouteLoadingOverlay from '@/components/shopper/RouteLoadingOverlay.vue' ;
+
 export default {
     props: {
       source: String,
@@ -126,6 +129,7 @@ export default {
       }
     },
     components:{
+      RouteLoadingOverlay,
       userNav,
       topNavCart,
       AppbarTitle,

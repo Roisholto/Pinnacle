@@ -3,6 +3,7 @@ import {INSTALL_MODE} from '@/constants.js' ;
 const ui = {
   namespaced: true,
   state: {
+    loadingRoute:false,
     installMode: INSTALL_MODE,
     showStoreInfo: true,
     showStoreFooter: true,
@@ -27,6 +28,10 @@ const ui = {
 
     incrementOpeningModalCount:(state)=>{
       state.StoreDefault.openingModalCount++
+    },
+
+    setLoadingRoute(state, payload){
+      state.loadingRoute = payload ;
     }
   },
 
