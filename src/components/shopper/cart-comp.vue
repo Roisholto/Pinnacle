@@ -1,59 +1,60 @@
 /** disable-eslint */
 <template>
-    <div>
-        <div v-if="cart_length==0">
-            <emptyCartPlaceholder :type="merchantInfo.type"/>
-        </div>
+  <div>
+    <div v-if="cart_length==0">
+      <emptyCartPlaceholder :type="merchantInfo.type"/>
+    </div>
+
     <div class="remove-last-border" v-else>
-            <div class="mb-2" v-for="(cart_item, m_index) in cart " v-bind:key="m_index">
-                <v-card class="rounded pa-2 animate__animated animate__slideInDown">
-                    <div class="d-none justify-content-between mb-2">
-                        <div class="">{{cart_item.name}}</div>
-                        <v-icon color="grey ">
-                            mdi-dots-vertical
+      <div class="mb-2" v-for="(cart_item, m_index) in cart " v-bind:key="m_index">
+        <v-card class="rounded pa-2 animate__animated animate__slideInDown">
+          <div class="d-none justify-content-between mb-2">
+            <div class="">{{cart_item.name}}</div>
+            <v-icon color="grey ">
+              mdi-dots-vertical
+            </v-icon>
+          </div>
+
+          <div class="border-bottom py-3 px-2" v-for="(item,index) in cart_item.items" v-bind:key="index">
+            <div class="d-flex flex-column">
+              <div class="text-right py-1" v-if="item_cart_error[cart_item.name] && item_cart_error[cart_item.name][item.code]">
+                <span class="red--text body-2 text--darken-2">{{item_cart_error[cart_item.name][item.code]}} </span>
+              </div>
+              <div class="d-flex">
+                <div class="col-9 px-0 pr-2">
+                  <single-item v-bind:item="inventoryItems[item.code]" v-bind:mode="'invoice'">
+                    <div class="d-flex">
+                      <!-- remove_item_from_cart_items() -->
+                      <v-btn @click.stop="edit_item(m_index,index)"  color="primary" class="pl-0 body-2" text>
+                        <v-icon size="16px" class="mr-1">
+                            mdi-pencil-outline
                         </v-icon>
+                        <span class="" style="text-transform:capitalize">Edit</span>
+                      </v-btn>
+                      <div class="mx-sm-0 mx-md-2"></div>
+                      <v-btn  @click="remove_item(m_index,index)" dense color="primary" class="body-2" text>
+                        <v-icon size="16px" class="mr-1">
+                            mdi-trash-can-outline
+                        </v-icon>
+                        <span class="" style="text-transform:capitalize">Remove</span>
+                      </v-btn>
                     </div>
+                  </single-item>
 
-                    <div class="border-bottom py-3 px-2" v-for="(item,index) in cart_item.items" v-bind:key="index">
-                        <div class="d-flex flex-column">
-                            <div class="text-right py-1" v-if="item_cart_error[cart_item.name] && item_cart_error[cart_item.name][item.code]">
-                                <span class="red--text body-2 text--darken-2">{{item_cart_error[cart_item.name][item.code]}} </span>
-                            </div>
-                            <div class="d-flex">
-                                <div class="col-9 px-0 pr-2">
-                                    <single-item v-bind:item="inventoryItems[item.code]" v-bind:mode="'invoice'">
-                                        <div class="d-flex">
-                                            <!-- remove_item_from_cart_items() -->
-                                            <v-btn @click.stop="edit_item(m_index,index)"  color="primary" class="pl-0 body-2" text>
-                                                <v-icon size="16px" class="mr-1">
-                                                    mdi-pencil-outline
-                                                </v-icon>
-                                                <span class="" style="text-transform:capitalize">Edit</span>
-                                            </v-btn>
-                                            <div class="mx-sm-0 mx-md-2"></div>
-                                            <v-btn  @click="remove_item(m_index,index)" dense color="primary" class="body-2" text>
-                                                <v-icon size="16px" class="mr-1">
-                                                    mdi-trash-can-outline
-                                                </v-icon>
-                                                <span class="" style="text-transform:capitalize">Remove</span>
-                                            </v-btn>
-                                        </div>
-                                    </single-item>
+                </div>
+                  <div class="col-3 d-flex px-0 text-right">
+                      <div class="body-2 flex-fill d-inline-block text-truncate ">{{to_currency(item.selected_price * item.selected_qty)}}</div>
+                      <div class="body-2 pl-2">{{item.selected_qty}}</div>
+                  </div>
+                  <!--<div class="col-2 px-0 pr-2 text-right">
 
-                                </div>
-                                <div class="col-3 d-flex px-0 text-right">
-                                    <div class="body-2 flex-fill d-inline-block text-truncate ">{{to_currency(item.selected_price * item.selected_qty)}}</div>
-                                    <div class="body-2 pl-2">{{item.selected_qty}}</div>
-                                </div>
-                                <!--<div class="col-2 px-0 pr-2 text-right">
+                  </div>-->
+              </div>
 
-                                </div>-->
-                            </div>
-
-                        </div>
-                    </div>
-                </v-card>
             </div>
+          </div>
+        </v-card>
+      </div>
 
             <v-card class="remove-last-border border rounded white animate__animated animate__slideInUp" v-if="extra_services && cart_length > 0">
                 <div class="pa-2">
@@ -226,6 +227,9 @@
               </v-card>
             </template>
     </div>
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" class="darken-2">
+      <div v-html="snackbar.message"></div>
+    </v-snackbar>
 </div>
 </template>
 <script>
@@ -235,7 +239,6 @@ import { calc_preorder_duration_unit } from '../../constants.js'
 import { validate_preordered } from '../../shopper.invoice.js'
 import Core from '../../class.core.js'
 import moment from 'moment'
-import jBox from 'jbox'
 import Vue from 'vue'
 import { mapState, mapGetters  } from 'vuex'
 import { naija_currency } from '@/functions/to_currency.js'
@@ -243,10 +246,7 @@ import singleItem from '@/components/common/item/single-item.vue'
 import addToCart from './cart/add-to-cart.vue'
 import quotationInfo from './cart/delivery/quotation-info.vue'
 import emptyCartPlaceholder from '@/components/shopper/cart/empty-cart-placeholder.vue'
-import 'jbox/Source/plugins/Notice/jBox.Notice.js'
 import {email} from '@/functions/rules.js' ;
-
-window.jBox = jBox
 
 export default {
   name: 'cartComp',
@@ -284,7 +284,12 @@ export default {
           enableTime: true,
           minDate: new Date()
         },
-      invoice_info: {} // only populated after the invoice has been generated on the server ;
+      invoice_info: {}, // only populated after the invoice has been generated on the server ;
+      snackbar:{
+        show:false,
+        color:'',
+        message:''
+      }
     }
   },
   computed: {
@@ -537,9 +542,9 @@ export default {
                   attr.preordered = the_time.format('X')
                   // console.log(the_time.format('llll')) ;
                 } else {
-                  errors.push(`Merchant needs at least <b>${vm.min_preorder_duration}'s </b>
+                  errors.push(`Merchant needs at least <b>${vm.min_preorder_duration}(s) </b>
                                         to attend to preorders and preorders cannot exceed
-                                        <b>${vm.max_preorder_duration}'s </b> from date of order`)
+                                        <b>${vm.max_preorder_duration}(s) </b> from date of order`)
                 }
               } else {
                 errors.push('Merchant does not open at the set time')
@@ -570,11 +575,10 @@ export default {
         }
 
         if (errors.length) {
-          new jBox('Notice', {
-            color: 'red',
-            content: `<small> ${errors.join('<br>')} </small>`
-          })
           // console.log('errors found',errors) ;
+          vm.snackbar.message = errors.join('<br>') ;
+          vm.snackbar.color = 'error',
+          vm.snackbar.show = true ;
           return
         }
 
@@ -607,19 +611,18 @@ export default {
                     })
                 .catch(e => {
                     console.log('error storring info', e)
-                    new jBox('Notice', {
-                        content: 'An error occured storing detail on client'
-                        })
+
+                    vm.snackbar.message =  'An error occured storing detail on client' ;
+                    vm.snackbar.color = 'error'
+                    vm.snackbar.show = true ;
                     })
                 }
             else
                 {
-                // todo copy the notice function from opencrm project
-                new jBox('Notice', {
-                  color: 'red',
-                  content: resp.error,
-                  autoClose: 8000
-                })
+
+                vm.snackbar.message =  resp.error ;
+                vm.snackbar.color = 'error'
+                vm.snackbar.show = true ;
 
                 if('invalids' in resp)
                     {
