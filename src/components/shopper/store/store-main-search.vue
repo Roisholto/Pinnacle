@@ -1,6 +1,6 @@
 <template>
     <StoreSearchLayout @back="" :requesting="requesting">
-        <div class="px-2 white">
+        <div class="px-2 white" v-if="breakpoint.xs">
             <div class="" v-for="(item, index) in orderedMatchItems" v-bind:key="item.code">
                 <a href="javascript:;" v-on:click="open_modal(item.code)" class="d-flex black--text py-3">
                     <div class="col-9 px-0">
@@ -12,11 +12,19 @@
                 </a>
                 <v-divider inset/>
             </div>
-
-            <template v-if="currentCode">
-                <add-to-cart v-bind:productCode="currentCode" ref="theModal" />
-            </template>
         </div>
+        <div class="grid-6-base-2" v-else>
+          <single-item-card
+              v-for="(item, index) in orderedMatchItems"
+              v-bind:item="item"
+              v-bind:key="item.id"
+              v-on:click="open_modal(item.code)"
+              /><!-- v-bind:item="inventoryItems[item]" v-on:click="open_modal(item)" -->
+        </div>
+
+        <template v-if="currentCode">
+            <add-to-cart v-bind:productCode="currentCode" ref="theModal" />
+        </template>
     </StoreSearchLayout>
 </template>
 <script>
@@ -29,7 +37,7 @@ import addToCart from '@/components/shopper/cart/add-to-cart.vue'
 import { naija_currency } from '@/functions/to_currency.js'
 import singleItem from '@/components/common/item/single-item.vue'
 import StoreSearchLayout from '@/layouts/StoreSearchLayout.vue' ;
-
+import singleItemCard from '@/components/common/item/single-item-card.vue' ;
 
 export default  {
   name: 'StoreMainSearch',
@@ -46,6 +54,10 @@ export default  {
   },
   computed:
         {
+          breakpoint(){
+            return this.$vuetify.breakpoint ;
+          },
+
           match: function () {
             return this.match_merchant_inventory_search(this.searchText)
           },
@@ -80,6 +92,7 @@ export default  {
   components: {
     addToCart,
     singleItem,
+    singleItemCard,
     StoreSearchLayout,
 
   },
