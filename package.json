@@ -22,11 +22,12 @@
     "qrcode-generator": "^1.4.1",
     "register-service-worker": "^1.5.2",
     "resize-sensor": "^0.0.6",
-    "vue": "^2.5.22",
+    "vue": "2.6.11",
     "vue-credit-card-validation": "^0.1.6",
     "vue-router": "^3.0.1",
     "vue-slick": "^1.1.15",
     "vue-stripe-payment": "^0.2.0",
+    "vue-virtual-scroller": "^1.0.10",
     "vuetify": "^2.1.0",
     "vuex": "^3.0.1"
   },
@@ -46,7 +47,7 @@
     "sass": "^1.19.0",
     "sass-loader": "7.1.0",
     "vue-cli-plugin-vuetify": "^1.1.1",
-    "vue-template-compiler": "^2.5.21",
+    "vue-template-compiler": "2.6.11",
     "vuetify-loader": "^1.3.0",
     "worker-plugin": "^4.0.3"
   }
