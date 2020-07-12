@@ -1,26 +1,39 @@
 <template>
     <StoreSearchLayout @back="" :requesting="requesting">
-        <div class="px-2 white" v-if="breakpoint.xs">
-            <div class="" v-for="(item, index) in orderedMatchItems" v-bind:key="item.code">
-                <a href="javascript:;" v-on:click="open_modal(item.code)" class="d-flex black--text py-3">
-                    <div class="col-9 px-0">
-                        <single-item  v-bind:item="item" v-bind:mode="'search-store'"></single-item>
-                    </div>
-                    <div class="col-3 px-0 text-right align-self-center">
-                        <span class="body-2">{{to_currency(item.rate.length ? item.rate[0].price : 0)}}</span>
-                    </div>
-                </a>
-                <v-divider inset/>
-            </div>
-        </div>
-        <div class="grid-6-base-2" v-else>
-          <single-item-card
-              v-for="(item, index) in orderedMatchItems"
-              v-bind:item="item"
-              v-bind:key="item.id"
-              v-on:click="open_modal(item.code)"
-              /><!-- v-bind:item="inventoryItems[item]" v-on:click="open_modal(item)" -->
-        </div>
+
+          <v-data-iterator
+          :items="orderedMatchItems"
+          item-key="code"
+          :items-per-page="100"
+          :footer-props="{disableItemsPerPage:true}"
+          style="margin-bottom:80px; width:100%"
+          @update:page="scrollToTop"
+            >
+            <template v-slot:default="{ items, isExpanded, expand }">
+              <div class="px-2 white " v-if="breakpoint.xs">
+                <div class="" v-for="(item, index) in items" v-bind:key="item.code">
+                    <a href="javascript:;" v-on:click="open_modal(item.code)" class="d-flex black--text py-3">
+                        <div class="col-9 px-0">
+                            <single-item  v-bind:item="item" v-bind:mode="'search-store'"></single-item>
+                        </div>
+                        <div class="col-3 px-0 text-right align-self-center">
+                            <span class="body-2">{{to_currency(item.rate.length ? item.rate[0].price : 0)}}</span>
+                        </div>
+                    </a>
+                    <v-divider inset/>
+                </div>
+              </div>
+              <div class="grid-6-base-2" v-else>
+                <single-item-card
+                    v-for="(item, index) in items"
+                    v-bind:item="item"
+                    v-bind:key="item.id"
+                    v-on:click="open_modal(item.code)"
+                    /><!-- v-bind:item="inventoryItems[item]" v-on:click="open_modal(item)" -->
+              </div>
+            </template>
+          </v-data-iterator>
+
 
         <template v-if="currentCode">
             <add-to-cart v-bind:productCode="currentCode" ref="theModal" />
@@ -44,7 +57,10 @@ export default  {
   data: function () {
     return {
       currentCode: '',
-      requesting: false
+      requesting: false,
+      dataIterator:{
+        disableItemsPerPage:true
+      }
     }
   },
   watch: {
@@ -145,6 +161,9 @@ export default  {
         })
     },
     // match merchant items with search text ;
+    scrollToTop(){
+      this.$vuetify.goTo(0) ;
+    },
     match_merchant_inventory_search: function (val) {
       let word = val ? val.toLowerCase() : '' ;
       let matched = []; let vm = this

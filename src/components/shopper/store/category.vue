@@ -3,17 +3,44 @@
         <div class="py-2">
             <v-breadcrumbs class="white py-4 text-capitalize" v-bind:items="bread"/>
         </div>
-
+        <v-dialog
+          v-model="gettingMatched"
+          persistent
+          width="300">
+          <v-card
+            color="primary"
+            dark
+          >
+            <v-card-text class="text-center">
+              Querying database, Please hold on.
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
         <template v-if="matched.length">
             <v-progress-linear color="primary" indeterminate :active="requesting" class="mb-2"/>
-            <div class="grid-6-base-2">
-                <single-item-card
-                    v-for="(item) in idb_matched"
-                    v-bind:item="item"
-                    v-bind:key="item.id"
-                    v-on:click="open_modal(item.code)"
-                    /><!-- v-bind:item="inventoryItems[item]" v-on:click="open_modal(item)" -->
-            </div>
+            <v-data-iterator
+              :items="idb_matched"
+              :items-per-page="100"
+              item-key="code"
+              :footer-props="{disableItemsPerPage:true}"
+              @update:page="$vuetify.goTo(0)"
+              >
+              <template v-slot:default="{items}">
+                <div class="grid-6-base-2">
+                    <single-item-card
+                        v-for="(item) in items"
+                        v-bind:item="item"
+                        v-bind:key="item.id"
+                        v-on:click="open_modal(item.code)"
+                        /><!-- v-bind:item="inventoryItems[item]" v-on:click="open_modal(item)" -->
+                </div>
+              </template>
+            </v-data-iterator>
             <template v-if="currentCode">
                 <add-to-cart v-bind:productCode="currentCode" ref="theModal" />
             </template>
@@ -70,6 +97,9 @@ export default {
         record:{}
       },
 
+      // running query on idb ;
+      gettingMatched: false,
+
       idb_matched:[]
     }
   },
@@ -86,7 +116,7 @@ export default {
     }),
 
     capitalized_category () {
-      return this.category.toUpperCase()
+      return this.category.trim().toUpperCase()
     },
 
     categoryAsArray(){
@@ -109,20 +139,30 @@ export default {
     },
 
     bread(){
-      let map = this.mapCategoryToParent() ;
-      map = map.map(function (x){
-        let cats = getQualifyingCategorys(x).map(x=> x.name).join('|') ;
-        return {
-          text:x.name,
-          exact:true,
-          to:{
-            name: 'store-category',
-            params: {
-              category:cats
+      let map = [] ;
+      if(this.capitalized_category == 'ALL'){
+        map = [
+            {
+              text:'ALL',
+            }
+          ]
+        }
+      else{
+        map = this.mapCategoryToParent() ;
+        map = map.map(function (x){
+          let cats = getQualifyingCategorys(x).map(x=> x.name).join('|') ;
+          return {
+            text:x.name,
+            exact:true,
+            to:{
+              name: 'store-category',
+              params: {
+                category:cats
+              }
             }
           }
-        }
-      }) ;
+        }) ;
+      }
 
       map.unshift({
         text: 'Store',
@@ -203,11 +243,13 @@ export default {
 
     get_matched: async function () {
       const vm = this
-      let matched = []
+      let matched = [] ;
+      vm.gettingMatched = true ;
       // load items that belong to the category ;
       let tb = Core.db_merchant.inventory ;
       let b = this.filterData.brands ;
       let t = this.filterData.tags ;
+
 
       tb = vm.capitalized_category != 'ALL' ?
         tb.where('category').anyOfIgnoreCase(vm.categoryAsArray)
@@ -243,13 +285,20 @@ export default {
 
       tb.distinct().toArray(x=>{
         vm.idb_matched = x ;
-      }) ;
+      })
+      .catch(function(e){
+        
+      })
+      .finally(function(){
+        vm.gettingMatched = false
+      })
 
       // this.matched = matched ;
       // access the api for more data if there exists ;
 
       return matched
     },
+
     open_modal: function (code) {
       let vm = this
       this.currentCode = code ;
