@@ -27,8 +27,9 @@
           </div>
           <ItemPromo v-if="promos.length" :promos="promo ? [promo] : promos"/>
         </v-card-title>
+
         <v-card-subtitle class="pt-1 pb-2 text-capitalize">
-            <div>
+            <div class="text-truncate">
                 {{item.name}}
             </div>
             <div class="">

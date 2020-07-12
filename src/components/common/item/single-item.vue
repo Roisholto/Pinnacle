@@ -9,7 +9,7 @@
              </div>-->
          </div>
          <div class="flex-fill px-1">
-             <div class="font-weight-medium name text-capitalize subtitle-2">
+             <div class="font-weight-medium name text-capitalize subtitle-2 text-truncate">
                  {{item.name}}
              </div>
              <template v-if="mode =='search-store' || mode=='invoice'">
