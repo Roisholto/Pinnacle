@@ -16,7 +16,7 @@
     "html2canvas": "^1.0.0-alpha.12",
     "intl-tel-input": "^16.0.2",
     "jbox": "^0.4.8",
-    "jquery-validation": "^1.19.0",
+    "jquery-validation": "^1.19.3",
     "lozad": "^1.9.0",
     "moment": "^2.22.2",
     "qrcode-generator": "^1.4.1",
